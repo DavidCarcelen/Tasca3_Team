@@ -1,3 +1,5 @@
+package FlowerStore.Items;
+
 public class Producto {
     String name;
 
