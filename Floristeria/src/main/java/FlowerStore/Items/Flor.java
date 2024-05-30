@@ -3,8 +3,8 @@ package FlowerStore.Items;
 public class Flor extends Producto {
 
     private String color;
-    public Flor(String name, double price, String color) {
-        super(name, price);
+    public Flor(String name, double price, int quantity, String color) {
+        super(name, price, quantity);
         this.color = color;
     }
 

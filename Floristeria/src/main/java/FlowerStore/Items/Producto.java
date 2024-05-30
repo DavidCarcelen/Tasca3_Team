@@ -3,10 +3,12 @@ package FlowerStore.Items;
 public abstract class Producto {
     protected String name;
     protected double price;
+    protected int quantity;
 
-    public Producto(String name, double price) {
+    public Producto(String name, double price, int quantity) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -23,6 +25,14 @@ public abstract class Producto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
