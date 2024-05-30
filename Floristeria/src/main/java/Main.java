@@ -1,5 +1,10 @@
+import Menu.Menu;
+
 public class Main {
     public static void main(String[] args) {
-        //FloristeriaRunning
+        //CrearFloristeria
+        Menu menu = new Menu();
+
+        menu.menu();
     }
 }
