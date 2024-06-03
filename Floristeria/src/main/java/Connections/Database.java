@@ -1,4 +1,4 @@
-package FlowerStore;
+package Connections;
 
 public final class Database {
 
