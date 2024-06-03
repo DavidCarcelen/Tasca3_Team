@@ -1,5 +1,7 @@
 package Menu;
 
+import FlowerStore.Database;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -33,6 +35,7 @@ public class Menu {
                 case 5:
                     break;
                 case 6:
+                    System.out.println("adios");
                     break;
                 default:
                     System.out.println("no es una opcion valida");

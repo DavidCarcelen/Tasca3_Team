@@ -5,6 +5,6 @@ public class Functions {
     // Arraylist de diferentes items
 
     public static void addProductStock(){
-        System.out.println("producto añadido");
+        System.out.println("producto añadido");// abrir conexion hacer consulta y cerrar
     };
 }
