@@ -15,19 +15,19 @@ public final class Database {
         if (instance == null){
             instance = new Database();
         }
-        openDatabase();
+        //openDatabase();
         return instance;
     }
 
-    public static void openDatabase (){
+    public static void openDatabase (){//conexion codigo hector, abre conexion ejecuta cierra
 
         System.out.println("conexion abierta");
-        try {
+        /*try {
             Connection connection = DriverManager.getConnection("direccion", "user", "password");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
     }
 
