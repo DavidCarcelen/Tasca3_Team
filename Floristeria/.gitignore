@@ -5,7 +5,7 @@ target/
 
 ### IntelliJ IDEA ###
 <<<<<<< HEAD
-
+.idea/misc.xmlclear
 =======
 .idea/misc.xml
 >>>>>>> f338c882a47c1e15ab7535eb40bf6a2b594932c5

@@ -14,7 +14,6 @@ import java.util.Scanner;
 import static Menu.Menu.numCheck;
 
 public class QuerysGenerator {
-<<<<<<< HEAD
     private static String allProducts ="Select * from product";
 
     public static void addFLowerToDatabase(Flor flor) {
@@ -27,8 +26,7 @@ public class QuerysGenerator {
     }
     public static void addTreeToDatabase(Arbol arbol) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (2);";
-=======
-    static Scanner sc = new Scanner(System.in);
+        static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";
     private static String queryGetIdColor = "SELECT idColor FROM color ORDER BY idColor DESC LIMIT 1;";
@@ -59,18 +57,18 @@ public class QuerysGenerator {
     public static void addTreeToDatabase(Arbol arbol) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (2);";
         // SELECT * FROM PRODUCTS ORDER BY idProduct DESC LIMIT 1
->>>>>>> 9afcedc2273458feb1a683727ba45fba018f9cb4
+
         String queryTree = "INSERT INTO tree (treeName, treeStock, treePrice) VALUES (" + arbol.getName() + ", " + arbol.getHeight() + ", " + arbol.getQuantity() + ", " + arbol.getPrice() + ");";
         System.out.println(queryProduct);
         System.out.println(queryTree);
     }
     public static void addDecorationToDatabase(Decoracion decoracion) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (3);";
-<<<<<<< HEAD
+
         String queryDecoration = "INSERT INTO decoration (decorationName, decorationMaterial, decorationStock, decorationPrice) VALUES (" + decoracion.getName() + ", " + decoracion.getMaterialType() + ", " + decoracion.getQuantity() + ", " + decoracion.getPrice() + ");";
         System.out.println(queryProduct);
         System.out.println(queryDecoration);
-=======
+
         // SELECT * FROM PRODUCTS ORDER BY idProduct DESC LIMIT 1
         String queryDecoration = "INSERT INTO decoration (decorationName, decorationMaterial, decorationStock, decorationPrice) VALUES (" + decoracion.getName() + ", " + " 1 " + ", " + decoracion.getQuantity() + ", " + decoracion.getPrice() + ");";
         String queryMaterial = "INSERT INTO material (idMaterial, materialName) VALUES ( 1, " + decoracion.getMaterialType() + ");";
@@ -104,7 +102,7 @@ public class QuerysGenerator {
             System.err.println(e.getMessage());
         }
         return 0;
->>>>>>> 9afcedc2273458feb1a683727ba45fba018f9cb4
+
     }
 
 }
