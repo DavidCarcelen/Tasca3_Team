@@ -2,23 +2,28 @@ package FlowerStore.Items;
 
 public class Flor extends Producto {
 
-    private String color;
-    public Flor(String name, double price, int quantity, String color) {
+    private int color;
+    public Flor(String name, double price, int quantity, int color) {
         super(name, price, quantity);
         this.color = color;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
     @Override
     public String toString() {
-        return "Name :" + name + ", price " + price + " , height " + this.color;
+        return "Flor{" +
+                "color=" + color +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 }
 

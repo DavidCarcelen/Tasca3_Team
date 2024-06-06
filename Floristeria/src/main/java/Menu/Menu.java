@@ -54,9 +54,7 @@ public class Menu {
                 System.out.println("Entra un numero");
                 sc.nextLine();
             }
-
         }
         return num;
     }
-
 }
