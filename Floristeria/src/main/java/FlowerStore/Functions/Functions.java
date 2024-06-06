@@ -29,8 +29,9 @@ public class Functions {
                 case 1:
                     System.out.println("Dígame el nombre de la flor que quiere anadir: ");
                     String name = sc.nextLine();
-                    System.out.println("Dígame el color de la flor que quiere anadir: ");
-                    String color = sc.nextLine();
+
+                    int color = flowerGetIdColor();
+
                     System.out.println("Dígame el precio de la flor que quiere anadir: ");
                     double price = sc.nextDouble();
                     sc.nextLine();
@@ -38,7 +39,7 @@ public class Functions {
                     int quantity = sc.nextInt();
                     sc.nextLine();
                     Flor flor = new Flor(name, price, quantity, color);
-                    //Genera una query para insertar en la base de datos
+                    System.out.println(flor);
                     addFLowerToDatabase(flor);
                     break;
                 case 2:

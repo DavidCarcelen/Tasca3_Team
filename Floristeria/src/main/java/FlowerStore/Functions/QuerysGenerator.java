@@ -1,22 +1,46 @@
 package FlowerStore.Functions;
 
+import Connections.FlowerShopDDBB;
 import FlowerStore.Items.Arbol;
 import FlowerStore.Items.Decoracion;
 import FlowerStore.Items.Flor;
 import FlowerStore.Items.Producto;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import static Menu.Menu.numCheck;
+
 public class QuerysGenerator {
+    static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";
 
     public static void addFLowerToDatabase(Flor flor) {
-        String queryProduct = "INSERT INTO product (idCategory) VALUES (1);";
-        int idProduct = getIdProduct(queryGetIdProduct);
-        String queryFlower = "INSERT INTO flower (flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + idProduct + "," + flor.getName() + ", " + " 1 "+ ", " + flor.getQuantity() + ", " + flor.getPrice() + ");";
-        String queryColor = "INSERT INTO color (idcolor, colorName) VALUES ( 1, " + flor.getColor() + ");";
-        System.out.println(queryProduct);
-        System.out.println(queryFlower);
-        System.out.println(queryColor);
+
+        ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+        ResultSet resultSet3 = null;
+        ResultSet resultSet4 = null;
+        Statement statement = null;
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            statement = FlowerShopDDBB.getConnection().createStatement();
+            statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
+            resultSet2 = statement.executeQuery(queryGetIdProduct);
+            int n2 = 0;
+            if (resultSet2.next()) {
+                n2 = resultSet2.getInt("idProduct");
+            }
+            System.out.println(n2);
+            statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + n2+ ",'"+ flor.getName()+"',"+  flor.getColor() + ", " + flor.getQuantity() + ", " + flor.getPrice() + ");");
+
+            /* resultSet4 = statement.executeQuery("INSERT INTO color (idcolor, colorName) VALUES ( 1, " + flor.getColor() + ");");*/
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
     public static void addTreeToDatabase(Arbol arbol) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (2);";
@@ -35,7 +59,29 @@ public class QuerysGenerator {
         System.out.println(queryMaterial);
     }
 
-    public static int getIdProduct(String queryGetIdProduct) {
+    public static int flowerGetIdColor() {
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM color;");
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("colorName") + " " + resultSet.getInt("idColor"));
+            }
+            System.out.println("Introduce el id del color o introduce 0 si no existe en la tabla:");
+            int num = numCheck();
+            if(num == 0){
+                System.out.println("Dígame que color quiere añadir a la tabla:");
+                String color = sc.nextLine();
+                ResultSet resultSet1 = statement.executeQuery("INSERT INTO color (colorName) VALUES (" + color + ");");
+                while (resultSet1.next()) {
+                    System.out.println(resultSet1.getString("colorName") + " " + resultSet1.getInt("idColor"));
+                }
+                return resultSet1.getInt("idColor");
+            }else{
+                return num;
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         return 0;
     }
 }
