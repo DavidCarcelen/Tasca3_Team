@@ -45,7 +45,6 @@ public class QuerysGenerator {
     }
     public static void addDecorationToDatabase(Decoracion decoracion) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (3);";
-        // SELECT * FROM PRODUCTS ORDER BY idProduct DESC LIMIT 1
         String queryDecoration = "INSERT INTO decoration (decorationName, decorationMaterial, decorationStock, decorationPrice) VALUES (" + decoracion.getName() + ", " + " 1 " + ", " + decoracion.getQuantity() + ", " + decoracion.getPrice() + ");";
         String queryMaterial = "INSERT INTO material (idMaterial, materialName) VALUES ( 1, " + decoracion.getMaterialType() + ");";
         System.out.println(queryProduct);
