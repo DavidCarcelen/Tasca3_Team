@@ -2,18 +2,18 @@ package FlowerStore.Items;
 
 public class Decoracion extends Producto {
 
-    private String materialType;
-    public Decoracion(String name, double price,int quantity, String materialType) {
+    private int materialType;
+    public Decoracion(String name, double price,int quantity, int materialType) {
 
         super(name, price,quantity);
         this.materialType = materialType;
     }
 
-    public String getMaterialType() {
+    public int getMaterialType() {
         return materialType;
     }
 
-    public void setMaterialType(String materialType) {
+    public void setMaterialType(int materialType) {
         this.materialType = materialType;
     }
 

@@ -18,11 +18,11 @@ public class Flor extends Producto {
 
     @Override
     public String toString() {
-        return "Flor{" +
-                "color=" + color +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
+        return "Flor{\n" +
+                "  color='" + color + '\'' + ",\n" +
+                "  name='" + name + '\'' + ",\n" +
+                "  price=" + price + ",\n" +
+                "  quantity=" + quantity + "\n" +
                 '}';
     }
 }

@@ -25,8 +25,10 @@ public class Menu {
                     addProductStock();
                     break;
                 case 2:
+
                     break;
                 case 3:
+                    removeProductStock();
                     break;
                 case 4:
                     break;
