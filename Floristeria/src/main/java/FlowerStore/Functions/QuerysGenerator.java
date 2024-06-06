@@ -17,6 +17,7 @@ public class QuerysGenerator {
     static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";
+    private static String queryGetIdColor = "SELECT idColor FROM color ORDER BY idColor DESC LIMIT 1;";
 
     public static void addFLowerToDatabase(Flor flor) {
 
@@ -29,12 +30,11 @@ public class QuerysGenerator {
             statement = FlowerShopDDBB.getConnection().createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
             resultSet2 = statement.executeQuery(queryGetIdProduct);
-            int n2 = 0;
+            int idProduct = 0;
             if (resultSet2.next()) {
-                n2 = resultSet2.getInt("idProduct");
+                idProduct = resultSet2.getInt("idProduct");
             }
-            System.out.println(n2);
-            statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + n2+ ",'"+ flor.getName()+"',"+  flor.getColor() + ", " + flor.getQuantity() + ", " + flor.getPrice() + ");");
+            statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + idProduct + ",'"+ flor.getName()+"',"+  flor.getColor() + ", " + flor.getQuantity() + ", " + flor.getPrice() + ");");
 
             /* resultSet4 = statement.executeQuery("INSERT INTO color (idcolor, colorName) VALUES ( 1, " + flor.getColor() + ");");*/
         } catch (Exception e) {
@@ -71,7 +71,8 @@ public class QuerysGenerator {
             if(num == 0){
                 System.out.println("Dígame que color quiere añadir a la tabla:");
                 String color = sc.nextLine();
-                ResultSet resultSet1 = statement.executeQuery("INSERT INTO color (colorName) VALUES (" + color + ");");
+                statement.executeUpdate("INSERT INTO color (colorName) VALUES ('" + color + "');");
+                ResultSet resultSet1 = statement.executeQuery(queryGetIdColor);
                 while (resultSet1.next()) {
                     System.out.println(resultSet1.getString("colorName") + " " + resultSet1.getInt("idColor"));
                 }
