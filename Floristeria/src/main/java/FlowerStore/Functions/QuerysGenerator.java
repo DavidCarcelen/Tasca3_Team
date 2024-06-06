@@ -22,21 +22,16 @@ public class QuerysGenerator {
     public static void addFLowerToDatabase(Flor flor) {
 
         ResultSet resultSet = null;
-        ResultSet resultSet2 = null;
-        ResultSet resultSet3 = null;
-        ResultSet resultSet4 = null;
         Statement statement = null;
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             statement = FlowerShopDDBB.getConnection().createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
-            resultSet2 = statement.executeQuery(queryGetIdProduct);
+            resultSet = statement.executeQuery(queryGetIdProduct);
             int idProduct = 0;
-            if (resultSet2.next()) {
-                idProduct = resultSet2.getInt("idProduct");
+            if (resultSet.next()) {
+                idProduct = resultSet.getInt("idProduct");
             }
             statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + idProduct + ",'"+ flor.getName()+"',"+  flor.getColor() + ", " + flor.getQuantity() + ", " + flor.getPrice() + ");");
-
-            /* resultSet4 = statement.executeQuery("INSERT INTO color (idcolor, colorName) VALUES ( 1, " + flor.getColor() + ");");*/
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -44,7 +39,6 @@ public class QuerysGenerator {
     }
     public static void addTreeToDatabase(Arbol arbol) {
         String queryProduct = "INSERT INTO product (idCategory) VALUES (2);";
-        // SELECT * FROM PRODUCTS ORDER BY idProduct DESC LIMIT 1
         String queryTree = "INSERT INTO tree (treeName, treeStock, treePrice) VALUES (" + arbol.getName() + ", " + arbol.getHeight() + ", " + arbol.getQuantity() + ", " + arbol.getPrice() + ");";
         System.out.println(queryProduct);
         System.out.println(queryTree);
