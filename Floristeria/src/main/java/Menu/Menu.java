@@ -1,5 +1,6 @@
 package Menu;
 
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ import static FlowerStore.Functions.Functions.*;
 public class Menu {
     static Scanner sc = new Scanner(System.in);
 
-    public static void menu() {
+    public static void menu() throws SQLException {
         int num = 0;
         do {
             System.out.println("Bienvenido a la floristeria\n" +

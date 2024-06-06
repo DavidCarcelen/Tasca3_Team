@@ -4,6 +4,7 @@ import FlowerStore.Items.Arbol;
 import FlowerStore.Items.Decoracion;
 import FlowerStore.Items.Flor;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import static FlowerStore.Functions.addMethods.*;
@@ -75,7 +76,7 @@ public class Functions {
         } while (option != 4);
     }
 
-    public static void removeProductStock() {
+    public static void removeProductStock() throws SQLException {
         int option;
         do {
             System.out.println("Que producto quiere eliminar? \n" +
@@ -88,13 +89,13 @@ public class Functions {
             sc.nextLine();
             switch (option) {
                 case 1:
-                    //imprimir flores
+                    removeMethods.removeFlower();
                     break;
                 case 2:
-                   //imprimir arboles
+                   removeMethods.removeTree();
                     break;
                 case 3:
-                    //imprimir decoracion
+                    removeMethods.removeDecoration();
                     break;
                 default:
                     break;
