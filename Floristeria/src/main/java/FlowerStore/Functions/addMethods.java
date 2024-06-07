@@ -22,7 +22,7 @@ public class addMethods {
     public static void addFLowerToDatabase(Flor flor) {
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
+            statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (2);");
             ResultSet resultSet = statement.executeQuery(queryGetIdProduct);
             int idProduct = 0;
             if (resultSet.next()) {
@@ -36,7 +36,7 @@ public class addMethods {
     public static void addTreeToDatabase(Arbol arbol) {
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (2);");
+            statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
             ResultSet resultSet = statement.executeQuery(queryGetIdProduct);
             int idProduct = 0;
             if (resultSet.next()) {

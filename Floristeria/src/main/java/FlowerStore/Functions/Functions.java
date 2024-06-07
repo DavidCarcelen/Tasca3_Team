@@ -1,12 +1,17 @@
 package FlowerStore.Functions;
 
+import Connections.FlowerShopDDBB;
 import FlowerStore.Items.Arbol;
 import FlowerStore.Items.Decoracion;
 import FlowerStore.Items.Flor;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
+import static FlowerStore.Functions.ShowMethods.*;
 import static FlowerStore.Functions.addMethods.*;
 
 public class Functions {
@@ -103,5 +108,12 @@ public class Functions {
         } while (option != 4);
 
     }
+    public static void showStock(){
+        showTree();
+        showFlower();
+        showDecoration();
+
+    }
+
 
 }

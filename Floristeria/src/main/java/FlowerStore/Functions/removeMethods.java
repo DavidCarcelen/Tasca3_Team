@@ -18,7 +18,6 @@ public class removeMethods {
     static Scanner sc = new Scanner(System.in);
     //me ha obligado a lanzar las excepciones porke?
     public static void removeFlower() throws SQLException {
-        int idFlor = 0;
         System.out.println("------------------LISTA DE FLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -28,22 +27,21 @@ public class removeMethods {
             }
             System.out.println("Introduce el id de la flor que quieres eliminar:");
             int num = numCheck();
-            ResultSet resultSet1 = statement.executeQuery("SELECT * FROM flower WHERE idProductFlower = '" + num+"'");
+            ResultSet resultSet1 = statement.executeQuery("SELECT * FROM flower WHERE idProductFlower = '" + num +"'");
                 if (resultSet1.next()) {
-                    //problemas para eliminar la calse producto
-                    //statement.executeUpdate("DELETE FROM product WHERE idProduct = 5");
-                    statement.executeUpdate("DELETE FROM flower WHERE idProductFlower ='"+num+"'");
-
+                    //MODIFICAR ON DELETE CASCADE EN PRODUCT DDBB
+                    statement.executeUpdate("DELETE FROM flower WHERE idProductFlower ='" + num + "'");
+                    //statement.executeUpdate("DELETE FROM product WHERE idProduct = '" + num + "'");
+                    System.out.println("Producto eliminado");
                 }
             else{
-            System.out.println("NO EXISTE ESTE ID");
+            System.err.println("NO EXISTE ESTE ID");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
     public static void removeTree() throws SQLException {
-        int idFlor = 0;
         System.out.println("------------------LISTA DE ARBOLES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -55,20 +53,18 @@ public class removeMethods {
             int num = numCheck();
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM tree WHERE idProductTree = '" + num+"'");
             if (resultSet1.next()) {
-                //problemas para eliminar la calse producto
                 //statement.executeUpdate("DELETE FROM product WHERE idProduct = 5");
                 statement.executeUpdate("DELETE FROM tree WHERE idProductTree ='"+num+"'");
-
+                System.out.println("Producto eliminado");
             }
             else{
-                System.out.println("NO EXISTE ESTE ID");
+                System.err.println("NO EXISTE ESTE ID");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
     public static void removeDecoration() throws SQLException {
-        int idFlor = 0;
         System.out.println("------------------LISTA DE DECORACIONES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -80,13 +76,12 @@ public class removeMethods {
             int num = numCheck();
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM decoration WHERE idProductDecoration = '" + num+"'");
             if (resultSet1.next()) {
-                //problemas para eliminar la calse producto
                 //statement.executeUpdate("DELETE FROM product WHERE idProduct = 5");
                 statement.executeUpdate("DELETE FROM decoration WHERE idProductDecoration  ='"+num+"'");
-
+                System.out.println("Producto eliminado");
             }
             else{
-                System.out.println("NO EXISTE ESTE ID");
+                System.err.println("NO EXISTE ESTE ID");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

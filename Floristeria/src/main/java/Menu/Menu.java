@@ -26,7 +26,7 @@ public class Menu {
                     addProductStock();
                     break;
                 case 2:
-
+                    showStock();
                     break;
                 case 3:
                     removeProductStock();
