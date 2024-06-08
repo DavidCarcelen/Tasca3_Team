@@ -46,7 +46,7 @@ public class Menu {
         } while (num != 6);
     }
 
-    public static int numCheck() {
+    public static int numCheck() {  //reubicar????
         int num = 0;
         boolean b = false;
         while (!b) {

@@ -8,6 +8,5 @@ public class Main {
         Menu menu = new Menu();
         menu.menu();
 
-        //si existe database podemos database.conexion(metodoquesea)
     }
 }

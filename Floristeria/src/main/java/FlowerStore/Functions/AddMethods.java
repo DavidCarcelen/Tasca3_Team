@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 import static Menu.Menu.numCheck;
 
-public class addMethods {
+public class AddMethods {
     static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";

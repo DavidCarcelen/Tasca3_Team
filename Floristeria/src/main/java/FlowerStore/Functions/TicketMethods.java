@@ -1,6 +1,6 @@
 package FlowerStore.Functions;
 
-public class ticketMethods {
+public class TicketMethods {
     //imprimir ticket
     //get all ticket
 }
