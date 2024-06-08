@@ -4,18 +4,18 @@ import FlowerStore.Items.Arbol;
 import FlowerStore.Items.Decoracion;
 import FlowerStore.Items.Flor;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
+import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.ShowMethods.*;
 import static FlowerStore.Functions.AddMethods.*;
-import static Menu.Menu.numCheck;
 
 public class Functions {
     static Scanner sc = new Scanner(System.in);
-
-
     public static void addProductStock() {
+        String name;
+        double price;
+        int quantity;
         int option;
         do {
             System.out.println("Que producto quiere añadir? \n" +
@@ -28,16 +28,12 @@ public class Functions {
             switch (option) {
                 case 1:
                     System.out.println("Dígame el nombre de la flor que quiere anadir: ");
-                    String name = sc.nextLine();
-
+                    name = sc.nextLine();
                     int color = flowerGetIdColor();
-
                     System.out.println("Dígame el precio de la flor que quiere anadir: ");
-                    double price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad de la flor que quiere anadir: ");
-                    int quantity = sc.nextInt();
-                    sc.nextLine();
+                    quantity = numCheck();
                     Flor flor = new Flor(name, price, quantity, color);
                     addFLowerToDatabase(flor);
                     break;
@@ -45,14 +41,11 @@ public class Functions {
                     System.out.println("Dígame el nombre del arbol que quiere anadir: ");
                     name = sc.nextLine();
                     System.out.println("Dígame el tamaño del arbol que quiere anadir: ");
-                    int height = sc.nextInt();
-                    sc.nextLine();
+                    double height = doubleCheck();
                     System.out.println("Dígame el precio del arbol que quiere anadir: ");
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad del arbol que quiere anadir: ");
-                    quantity = sc.nextInt();
-                    sc.nextLine();
+                    quantity = numCheck();
                     Arbol arbol = new Arbol(name, price, quantity, height);
                     addTreeToDatabase(arbol);
                     break;
@@ -61,11 +54,9 @@ public class Functions {
                     name = sc.nextLine();
                     int material = decorationGetIdType();
                     System.out.println("Dígame el precio de la decoración que quiere anadir: ");
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad de la decoración que quiere anadir: ");
-                    quantity = sc.nextInt();
-                    sc.nextLine();
+                    quantity = numCheck();
                     Decoracion decoracion = new Decoracion(name, price, quantity, material);
                     addDecorationToDatabase(decoracion);
                     break;
@@ -74,7 +65,6 @@ public class Functions {
             }
         } while (option != 4);
     }
-
     public static void removeProductStock(){
         int option;
         do {
@@ -99,7 +89,6 @@ public class Functions {
                     break;
             }
         } while (option != 4);
-
     }
     public static void showStock(){
         int option;
