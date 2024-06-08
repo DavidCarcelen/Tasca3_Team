@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.Functions.*;
+import static FlowerStore.Tickets.Ticket.createNewTicket;
 
 public class Menu {
     static Scanner sc = new Scanner(System.in);
@@ -33,6 +34,7 @@ public class Menu {
                     removeProductStock();
                     break;
                 case 4:
+                    createNewTicket();
                     break;
                 case 5:
                     break;
