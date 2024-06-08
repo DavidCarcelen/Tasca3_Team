@@ -4,19 +4,14 @@ import Connections.FlowerShopDDBB;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import static Menu.Menu.numCheck;
+import static FlowerStore.Functions.AuxiliarMethods.*;
 
 public class RemoveMethods {
-    //escoger que tipo de producto vamos a eliminar
-    //imprimir todos los productos de ese tipo
-    //eliminar el producto con un int de id
-
     static Scanner sc = new Scanner(System.in);
-    //me ha obligado a lanzar las excepciones porke?
+
     public static void removeFlower(){
         System.out.println("------------------LISTA DE FLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
@@ -29,9 +24,7 @@ public class RemoveMethods {
             int num = numCheck();
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM flower WHERE idProductFlower = '" + num +"'");
                 if (resultSet1.next()) {
-                    //MODIFICAR ON DELETE CASCADE EN PRODUCT DDBB
                     statement.executeUpdate("DELETE FROM flower WHERE idProductFlower ='" + num + "'");
-                    //statement.executeUpdate("DELETE FROM product WHERE idProduct = '" + num + "'");
                     System.out.println("Producto eliminado");
                 }
             else{
@@ -53,7 +46,6 @@ public class RemoveMethods {
             int num = numCheck();
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM tree WHERE idProductTree = '" + num+"'");
             if (resultSet1.next()) {
-                //statement.executeUpdate("DELETE FROM product WHERE idProduct = 5");
                 statement.executeUpdate("DELETE FROM tree WHERE idProductTree ='"+num+"'");
                 System.out.println("Producto eliminado");
             }
@@ -76,7 +68,6 @@ public class RemoveMethods {
             int num = numCheck();
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM decoration WHERE idProductDecoration = '" + num+"'");
             if (resultSet1.next()) {
-                //statement.executeUpdate("DELETE FROM product WHERE idProduct = 5");
                 statement.executeUpdate("DELETE FROM decoration WHERE idProductDecoration  ='"+num+"'");
                 System.out.println("Producto eliminado");
             }
