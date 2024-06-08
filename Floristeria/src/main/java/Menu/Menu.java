@@ -14,12 +14,12 @@ public class Menu {
         int num = 0;
         do {
             System.out.println("Bienvenido a la floristeria\n" +
-                    "1 addProductStock\n" +
-                    "2 showStock \n" +
-                    "3 removeProductStock\n" +
-                    "4 newTicket\n" +
-                    "5 showTickets(+totalValueSales)\n" +
-                    "6 Exit");
+                    "1 Añadir Productos\n" +
+                    "2 Ver Productos \n" +
+                    "3 Eliminar Productos\n" +
+                    "4 Ticket Nuevo\n" +
+                    "5 Ver todos los Tickets\n" +
+                    "6 Salir");
 
             num = numCheck();
             switch (num) {

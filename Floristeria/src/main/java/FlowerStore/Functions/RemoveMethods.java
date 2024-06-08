@@ -16,9 +16,9 @@ public class RemoveMethods {
         System.out.println("------------------LISTA DE FLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM flower;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM flower ORDER BY idProductFlower ASC;");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("flowerName") + " " + resultSet.getInt("idProductFlower"));
+                System.out.println("- "+ resultSet.getInt("idProductFlower") + " " + resultSet.getString("flowerName"));
             }
             System.out.println("Introduce el id de la flor que quieres eliminar:");
             int num = numCheck();
@@ -38,9 +38,9 @@ public class RemoveMethods {
         System.out.println("------------------LISTA DE ARBOLES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM tree;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM tree ORDER BY idProductTree ASC;");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("treeName") + " " + resultSet.getInt("idProductTree"));
+                System.out.println("- " + resultSet.getInt("idProductTree") + " " + resultSet.getString("treeName"));
             }
             System.out.println("Introduce el id del arbol que quieres eliminar:");
             int num = numCheck();
@@ -60,9 +60,9 @@ public class RemoveMethods {
         System.out.println("------------------LISTA DE DECORACIONES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM decoration;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM decoration ORDER BY idProductDecoration ASC;");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("decorationName") + " " + resultSet.getInt("idProductDecoration"));
+                System.out.println("- " + resultSet.getInt("idProductDecoration") + " " + resultSet.getString("decorationName"));
             }
             System.out.println("Introduce el id de la decoracion que quieres eliminar:");
             int num = numCheck();

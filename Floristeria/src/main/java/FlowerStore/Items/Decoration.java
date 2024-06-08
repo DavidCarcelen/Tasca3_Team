@@ -1,9 +1,9 @@
 package FlowerStore.Items;
 
-public class Decoracion extends Producto {
+public class Decoration extends Product {
 
     private int materialType;
-    public Decoracion(String name, double price,int quantity, int materialType) {
+    public Decoration(String name, double price, int quantity, int materialType) {
 
         super(name, price,quantity);
         this.materialType = materialType;

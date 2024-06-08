@@ -1,8 +1,8 @@
 package FlowerStore.Functions;
 
-import FlowerStore.Items.Arbol;
-import FlowerStore.Items.Decoracion;
-import FlowerStore.Items.Flor;
+import FlowerStore.Items.Tree;
+import FlowerStore.Items.Decoration;
+import FlowerStore.Items.Flower;
 
 import java.util.Scanner;
 
@@ -34,8 +34,8 @@ public class Functions {
                     price = doubleCheck();
                     System.out.println("Dígame la cantidad de la flor que quiere anadir: ");
                     quantity = numCheck();
-                    Flor flor = new Flor(name, price, quantity, color);
-                    addFLowerToDatabase(flor);
+                    Flower flower = new Flower(name, price, quantity, color);
+                    addFLowerToDatabase(flower);
                     break;
                 case 2:
                     System.out.println("Dígame el nombre del arbol que quiere anadir: ");
@@ -46,8 +46,8 @@ public class Functions {
                     price = doubleCheck();
                     System.out.println("Dígame la cantidad del arbol que quiere anadir: ");
                     quantity = numCheck();
-                    Arbol arbol = new Arbol(name, price, quantity, height);
-                    addTreeToDatabase(arbol);
+                    Tree tree = new Tree(name, price, quantity, height);
+                    addTreeToDatabase(tree);
                     break;
                 case 3:
                     System.out.println("Dígame el nombre de la decoración que quiere anadir: ");
@@ -57,8 +57,8 @@ public class Functions {
                     price = doubleCheck();
                     System.out.println("Dígame la cantidad de la decoración que quiere anadir: ");
                     quantity = numCheck();
-                    Decoracion decoracion = new Decoracion(name, price, quantity, material);
-                    addDecorationToDatabase(decoracion);
+                    Decoration decoration = new Decoration(name, price, quantity, material);
+                    addDecorationToDatabase(decoration);
                     break;
                 default:
                     break;

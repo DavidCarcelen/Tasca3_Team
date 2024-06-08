@@ -1,9 +1,9 @@
 package FlowerStore.Functions;
 
 import Connections.FlowerShopDDBB;
-import FlowerStore.Items.Arbol;
-import FlowerStore.Items.Decoracion;
-import FlowerStore.Items.Flor;
+import FlowerStore.Items.Tree;
+import FlowerStore.Items.Decoration;
+import FlowerStore.Items.Flower;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ public class AddMethods {
     private static String queryGetIdColor = "SELECT idColor FROM color ORDER BY idColor DESC LIMIT 1;";
     private static String queryGetIdMaterial = "SELECT idMaterial FROM material ORDER BY idMaterial DESC LIMIT 1;";
 
-    public static void addFLowerToDatabase(Flor flor) {
+    public static void addFLowerToDatabase(Flower flower) {
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (2);");
@@ -29,12 +29,12 @@ public class AddMethods {
             if (resultSet.next()) {
                 idProduct = resultSet.getInt("idProduct");
             }
-            statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + idProduct + ",'"+ flor.getName()+"',"+  flor.getColor() + ", " + flor.getQuantity() + ", " + flor.getPrice() + ");");
+            statement.executeUpdate("INSERT INTO flower (idProductFlower, flowerName, idColorFlower, flowerStock, flowerPrice) VALUES ( " + idProduct + ",'"+ flower.getName()+"',"+  flower.getColor() + ", " + flower.getQuantity() + ", " + flower.getPrice() + ");");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-    public static void addTreeToDatabase(Arbol arbol) {
+    public static void addTreeToDatabase(Tree tree) {
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
@@ -43,13 +43,13 @@ public class AddMethods {
             if (resultSet.next()) {
                 idProduct = resultSet.getInt("idProduct");
             }
-            statement.executeUpdate("INSERT INTO tree (idProductTree, treeName, height, treeStock, treePrice) VALUES ( " + idProduct + ",'"+ arbol.getName()+"',"+  arbol.getHeight() + ", " + arbol.getQuantity() + ", " + arbol.getPrice() + ");");
+            statement.executeUpdate("INSERT INTO tree (idProductTree, treeName, height, treeStock, treePrice) VALUES ( " + idProduct + ",'"+ tree.getName()+"',"+  tree.getHeight() + ", " + tree.getQuantity() + ", " + tree.getPrice() + ");");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-    public static void addDecorationToDatabase(Decoracion decoracion) {
-        String queryMaterial = "INSERT INTO material (idMaterial, materialName) VALUES ( 1, " + decoracion.getMaterialType() + ");";
+    public static void addDecorationToDatabase(Decoration decoration) {
+        String queryMaterial = "INSERT INTO material (idMaterial, materialName) VALUES ( 1, " + decoration.getMaterialType() + ");";
 
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -59,7 +59,7 @@ public class AddMethods {
             if (resultSet.next()) {
                 idProduct = resultSet.getInt("idProduct");
             }
-            statement.executeUpdate("INSERT INTO decoration (idProductDecoration, DecorationName, idMaterialDecoration, DecorationStock, DecorationPrice) VALUES ( " + idProduct + ",'"+ decoracion.getName()+"',"+  decoracion.getMaterialType() + ", " + decoracion.getQuantity() + ", " + decoracion.getPrice() + ");");
+            statement.executeUpdate("INSERT INTO decoration (idProductDecoration, DecorationName, idMaterialDecoration, DecorationStock, DecorationPrice) VALUES ( " + idProduct + ",'"+ decoration.getName()+"',"+  decoration.getMaterialType() + ", " + decoration.getQuantity() + ", " + decoration.getPrice() + ");");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -69,10 +69,10 @@ public class AddMethods {
         System.out.println("------------------LISTA DE COLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM color;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM color ORDER BY idColor ASC;");
             ArrayList <Integer> listaId = new ArrayList<>();
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("colorName") + " " + resultSet.getInt("idColor"));
+                System.out.println("- " + resultSet.getInt("idColor") + " " + resultSet.getString("colorName") );
                 listaId.add(resultSet.getInt("idColor"));
             }
             int num = idCheck(listaId);
@@ -97,10 +97,10 @@ public class AddMethods {
         System.out.println("------------------LISTA DE MATERIALES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM material;");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM material ORDER BY idMaterial ASC;");
             ArrayList <Integer> listaId = new ArrayList<>();
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("materialName") + " " + resultSet.getInt("idMaterial"));
+                System.out.println("- " + resultSet.getInt("idMaterial") + " " + resultSet.getString("materialName"));
                 listaId.add(resultSet.getInt("idMaterial"));
             }
             int num = idCheck(listaId);
