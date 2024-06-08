@@ -1,21 +1,21 @@
 package FlowerStore.Functions;
 
-import FlowerStore.Items.Arbol;
-import FlowerStore.Items.Decoracion;
-import FlowerStore.Items.Flor;
+import FlowerStore.Items.Tree;
+import FlowerStore.Items.Decoration;
+import FlowerStore.Items.Flower;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 
+import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.ShowMethods.*;
 import static FlowerStore.Functions.AddMethods.*;
-import static Menu.Menu.numCheck;
 
 public class Functions {
     static Scanner sc = new Scanner(System.in);
-
-
     public static void addProductStock() {
+        String name;
+        double price;
+        int quantity;
         int option;
         do {
             System.out.println("Que producto quiere añadir? \n" +
@@ -28,54 +28,44 @@ public class Functions {
             switch (option) {
                 case 1:
                     System.out.println("Dígame el nombre de la flor que quiere anadir: ");
-                    String name = sc.nextLine();
-
+                    name = sc.nextLine();
                     int color = flowerGetIdColor();
-
                     System.out.println("Dígame el precio de la flor que quiere anadir: ");
-                    double price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad de la flor que quiere anadir: ");
-                    int quantity = sc.nextInt();
-                    sc.nextLine();
-                    Flor flor = new Flor(name, price, quantity, color);
-                    addFLowerToDatabase(flor);
+                    quantity = numCheck();
+                    Flower flower = new Flower(name, price, quantity, color);
+                    addFLowerToDatabase(flower);
                     break;
                 case 2:
                     System.out.println("Dígame el nombre del arbol que quiere anadir: ");
                     name = sc.nextLine();
-                    System.out.println("Dígame el tamaño de la flor que quiere anadir: ");
-                    int height = sc.nextInt();
-                    sc.nextLine();
+                    System.out.println("Dígame el tamaño del arbol que quiere anadir: ");
+                    double height = doubleCheck();
                     System.out.println("Dígame el precio del arbol que quiere anadir: ");
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad del arbol que quiere anadir: ");
-                    quantity = sc.nextInt();
-                    sc.nextLine();
-                    Arbol arbol = new Arbol(name, price, quantity, height);
-                    addTreeToDatabase(arbol);
+                    quantity = numCheck();
+                    Tree tree = new Tree(name, price, quantity, height);
+                    addTreeToDatabase(tree);
                     break;
                 case 3:
                     System.out.println("Dígame el nombre de la decoración que quiere anadir: ");
                     name = sc.nextLine();
                     int material = decorationGetIdType();
                     System.out.println("Dígame el precio de la decoración que quiere anadir: ");
-                    price = sc.nextDouble();
-                    sc.nextLine();
+                    price = doubleCheck();
                     System.out.println("Dígame la cantidad de la decoración que quiere anadir: ");
-                    quantity = sc.nextInt();
-                    sc.nextLine();
-                    Decoracion decoracion = new Decoracion(name, price, quantity, material);
-                    addDecorationToDatabase(decoracion);
+                    quantity = numCheck();
+                    Decoration decoration = new Decoration(name, price, quantity, material);
+                    addDecorationToDatabase(decoration);
                     break;
                 default:
                     break;
             }
         } while (option != 4);
     }
-
-    public static void removeProductStock() throws SQLException {
+    public static void removeProductStock(){
         int option;
         do {
             System.out.println("Que producto quiere eliminar? \n" +
@@ -99,7 +89,6 @@ public class Functions {
                     break;
             }
         } while (option != 4);
-
     }
     public static void showStock(){
         int option;

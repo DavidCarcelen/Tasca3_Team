@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.Functions.*;
 import static FlowerStore.Tickets.Ticket.createNewTicket;
 
@@ -14,12 +15,12 @@ public class Menu {
         int num = 0;
         do {
             System.out.println("Bienvenido a la floristeria\n" +
-                    "1 addProductStock\n" +
-                    "2 showStock\n" +
-                    "3 removeProductStock\n" +
-                    "4 newTicket\n" +
-                    "5 showTickets(+totalValueSales)\n" +
-                    "6 Exit");
+                    "1 Añadir Productos\n" +
+                    "2 Ver Productos \n" +
+                    "3 Eliminar Productos\n" +
+                    "4 Ticket Nuevo\n" +
+                    "5 Ver todos los Tickets\n" +
+                    "6 Salir");
 
             num = numCheck();
             switch (num) {
@@ -38,28 +39,13 @@ public class Menu {
                 case 5:
                     break;
                 case 6:
-                    System.out.println("adios");
+                    System.out.println("Adios.");
                     break;
                 default:
-                    System.out.println("no es una opcion valida");
+                    System.out.println("No es una opción valida. Introduce una opcion que exista en el menu.");
                     break;
             }
 
         } while (num != 6);
-    }
-
-    public static int numCheck() {  //reubicar????
-        int num = 0;
-        boolean b = false;
-        while (!b) {
-            try {
-                num = sc.nextInt();
-                b = true;
-            } catch (InputMismatchException e) {
-                System.out.println("Entra un numero");
-                sc.nextLine();
-            }
-        }
-        return num;
     }
 }
