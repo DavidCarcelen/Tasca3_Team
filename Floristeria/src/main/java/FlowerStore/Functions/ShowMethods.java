@@ -46,7 +46,7 @@ public class ShowMethods {
     }
     public static void showFlower(){
 
-        System.out.println("-------------------FLORES---------------");
+        System.out.println("------------------FLORES----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT \n" +

@@ -14,7 +14,7 @@ public class Menu {
         do {
             System.out.println("Bienvenido a la floristeria\n" +
                     "1 addProductStock\n" +
-                    "2 showStock\n" +
+                    "2 showStock \n" +
                     "3 removeProductStock\n" +
                     "4 newTicket\n" +
                     "5 showTickets(+totalValueSales)\n" +
