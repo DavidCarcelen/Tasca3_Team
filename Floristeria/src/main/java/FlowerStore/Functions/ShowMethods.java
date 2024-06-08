@@ -132,4 +132,37 @@ public class ShowMethods {
         }
 
     }
+
+    public static float getPrecioProduct(int idCategory, int idProduct){
+        String tabla = "";
+        String columna = "";
+        float precio = 0;
+        switch(idCategory){
+            case 1:
+                tabla = "Tree";
+                columna = "treePrice";
+                break;
+            case 2:
+                tabla = "Flower";
+                columna = "flowerPrice";
+                break;
+            case 3:
+                tabla = "Decoracion";
+                columna = "decorationPrice";
+                break;
+        }//ayuda a sacabar query
+        String queryPrecio = "SELECT " + columna + " FROM " + tabla + "WHERE idProduct = " + idProduct +";";
+
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryPrecio);
+
+            if (resultSet.next()) {
+                precio = resultSet.getFloat(columna);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return precio;
+    }
 }

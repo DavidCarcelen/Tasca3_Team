@@ -7,10 +7,11 @@ public class InvoiceLine {
     private int productQuantity;
     private double priceInvoiceLine;
 
-    public InvoiceLine( int idInvoiceHeader, int idProductInvoiceLine, double priceInvoiceLine) {
+    public InvoiceLine( int idInvoiceHeader, int idProductInvoiceLine, int productQuantity, double priceInvoiceLine) {
         this.idInvoiceHeader = idInvoiceHeader;
         this.idProductInvoiceLine = idProductInvoiceLine;
         this.priceInvoiceLine = priceInvoiceLine;
+        this.productQuantity = productQuantity;
     }
 
     public int getIdInvoiceLine() {
@@ -52,6 +53,7 @@ public class InvoiceLine {
     public void setPriceInvoiceLine(double priceInvoiceLine) {
         this.priceInvoiceLine = priceInvoiceLine;
     }
+
 
     @Override
     public String toString() {
