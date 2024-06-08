@@ -17,7 +17,7 @@ public class RemoveMethods {
 
     static Scanner sc = new Scanner(System.in);
     //me ha obligado a lanzar las excepciones porke?
-    public static void removeFlower() throws SQLException {
+    public static void removeFlower(){
         System.out.println("------------------LISTA DE FLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -41,7 +41,7 @@ public class RemoveMethods {
             System.err.println(e.getMessage());
         }
     }
-    public static void removeTree() throws SQLException {
+    public static void removeTree(){
         System.out.println("------------------LISTA DE ARBOLES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
@@ -64,7 +64,7 @@ public class RemoveMethods {
             System.err.println(e.getMessage());
         }
     }
-    public static void removeDecoration() throws SQLException {
+    public static void removeDecoration(){
         System.out.println("------------------LISTA DE DECORACIONES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();

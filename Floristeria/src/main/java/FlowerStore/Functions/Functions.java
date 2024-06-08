@@ -44,7 +44,7 @@ public class Functions {
                 case 2:
                     System.out.println("Dígame el nombre del arbol que quiere anadir: ");
                     name = sc.nextLine();
-                    System.out.println("Dígame el tamaño de la flor que quiere anadir: ");
+                    System.out.println("Dígame el tamaño del arbol que quiere anadir: ");
                     int height = sc.nextInt();
                     sc.nextLine();
                     System.out.println("Dígame el precio del arbol que quiere anadir: ");
@@ -75,7 +75,7 @@ public class Functions {
         } while (option != 4);
     }
 
-    public static void removeProductStock() throws SQLException {
+    public static void removeProductStock(){
         int option;
         do {
             System.out.println("Que producto quiere eliminar? \n" +
