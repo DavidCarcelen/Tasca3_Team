@@ -1,8 +1,6 @@
 package Connections;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class FlowerShopDDBB {
     private static FlowerShopDDBB instance;
@@ -21,8 +19,33 @@ public class FlowerShopDDBB {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
+        }
+    }
+
+    public static void showStock(){
+        try (Connection con = FlowerShopDDBB.getConnection()){
+            // Crear una declaración y ejecutar una consulta
+            Statement statement = null;
+            ResultSet resultSet = null;
+            ResultSet resultSet1 = null;
+            ResultSet resultSet2 = null;
+
+            statement = con.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM tree");
+            resultSet1 = statement.executeQuery("SELECT * FROM flower");
+            resultSet2 = statement.executeQuery("SELECT * FROM product");
+
+            // Procesar los resultados
+            while (resultSet.next()) {
+                int id = resultSet.getInt("idProduct"); // Nombre de columna en la tabla
+                int categoriaId = resultSet.getInt("idCategoryProduct"); // Nombre de columna en la tabla
+
+                System.out.println("ID: " + id + ", Categoria ID: " + categoriaId);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
     }
 }
