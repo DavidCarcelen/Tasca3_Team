@@ -8,11 +8,14 @@ import FlowerStore.Items.Flor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import static Menu.Menu.numCheck;
 
-public class addMethods {
+public class AddMethods {
     static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";
@@ -65,15 +68,33 @@ public class addMethods {
     }
     public static int flowerGetIdColor() {
         int idColor = 0;
+        int num = 0;
         System.out.println("------------------LISTA DE COLORES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM color;");
+            ArrayList <Integer> listaId = new ArrayList<>();
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("colorName") + " " + resultSet.getInt("idColor"));
+                listaId.add(resultSet.getInt("idColor"));
             }
-            System.out.println("Introduce el id del color o introduce 0 si no existe en la tabla:");
-            int num = numCheck();
+            boolean b = false;
+            do{
+                System.out.println("Introduce el id del color que aparece en la tabla o introduce 0 si no existe en la tabla:");
+                num = numCheck();
+                if (num != 0) {
+                    int i = 0;
+                    while (i< listaId.size() && !b){
+                        if(listaId.get(i) == num ){
+                            b = true;
+                        }
+                        i++;
+                    }
+                    if (!b){
+                        System.out.println("No existe ese ID");
+                    }
+                }
+            }while((!b) && (num != 0));
             if(num == 0){
                 System.out.println("Dígame que color quiere añadir a la tabla:");
                 String color = sc.nextLine();
@@ -92,15 +113,33 @@ public class addMethods {
     }
     public static int decorationGetIdType() {
         int idMaterial = 0;
+        int num = 0;
         System.out.println("------------------LISTA DE MATERIALES-----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM material;");
+            ArrayList <Integer> listaId = new ArrayList<>();
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("materialName") + " " + resultSet.getInt("idMaterial"));
+                listaId.add(resultSet.getInt("idMaterial"));
             }
-            System.out.println("Introduce el id del material o introduce 0 si no existe en la tabla:");
-            int num = numCheck();
+            boolean b = false;
+            do{
+                System.out.println("Introduce el id del material que aparece en la tabla o introduce 0 si no existe en la tabla:");
+                num = numCheck();
+                if (num != 0) {
+                    int i = 0;
+                    while (i< listaId.size() && !b){
+                        if(listaId.get(i) == num ){
+                            b = true;
+                        }
+                        i++;
+                    }
+                    if (!b){
+                        System.out.println("No existe ese ID");
+                    }
+                }
+            }while((!b) && (num != 0));
             if(num == 0){
                 System.out.println("Dígame que material quiere añadir a la tabla:");
                 String material = sc.nextLine();

@@ -9,8 +9,7 @@ import java.sql.Statement;
 public class ShowMethods {
     public static void showTree(){
 
-        System.out.println("------------------STOCK-----------------\n" +
-                "-----------------ARBOLES----------------");
+        System.out.println("-----------------ARBOLES----------------");
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT \n" +
@@ -116,5 +115,21 @@ public class ShowMethods {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+    public static void totalValue (){
+        String queryTotalValue = "SELECT (SUM(f.flowerStock * f.flowerPrice) + SUM(t.treeStock * t.treePrice) + SUM(d.DecorationStock * d.DecorationPrice)) AS totalValue FROM Product p LEFT JOIN Flower f ON p.idProduct = f.idProductFlower LEFT JOIN Tree t ON p.idProduct = t.idProductTree LEFT JOIN Decoration d ON p.idProduct = d.idProductDecoration;";
+
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryTotalValue);
+
+            if (resultSet.next()) {
+                float totalValue = resultSet.getFloat("totalValue");
+                System.out.println("Valor total de la floristería: " + totalValue + "€");
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 }

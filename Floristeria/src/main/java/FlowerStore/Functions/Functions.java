@@ -1,24 +1,19 @@
 package FlowerStore.Functions;
 
-import Connections.FlowerShopDDBB;
 import FlowerStore.Items.Arbol;
 import FlowerStore.Items.Decoracion;
 import FlowerStore.Items.Flor;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Scanner;
 
 import static FlowerStore.Functions.ShowMethods.*;
-import static FlowerStore.Functions.addMethods.*;
+import static FlowerStore.Functions.AddMethods.*;
+import static Menu.Menu.numCheck;
 
 public class Functions {
     static Scanner sc = new Scanner(System.in);
 
-    //Para crear las diferentes funciones del menu de la floristeria
-    // Arraylist de diferentes items
 
     public static void addProductStock() {
         int option;
@@ -29,8 +24,7 @@ public class Functions {
                     "3. Decoración. \n" +
                     "4. Salir");
 
-            option = sc.nextInt();
-            sc.nextLine();
+            option = numCheck();
             switch (option) {
                 case 1:
                     System.out.println("Dígame el nombre de la flor que quiere anadir: ");
@@ -50,7 +44,7 @@ public class Functions {
                 case 2:
                     System.out.println("Dígame el nombre del arbol que quiere anadir: ");
                     name = sc.nextLine();
-                    System.out.println("Dígame el tamaño de la flor que quiere anadir: ");
+                    System.out.println("Dígame el tamaño del arbol que quiere anadir: ");
                     int height = sc.nextInt();
                     sc.nextLine();
                     System.out.println("Dígame el precio del arbol que quiere anadir: ");
@@ -81,7 +75,7 @@ public class Functions {
         } while (option != 4);
     }
 
-    public static void removeProductStock() throws SQLException {
+    public static void removeProductStock(){
         int option;
         do {
             System.out.println("Que producto quiere eliminar? \n" +
@@ -90,17 +84,16 @@ public class Functions {
                     "3. Decoración. \n" +
                     "4. Salir");
 
-            option = sc.nextInt();
-            sc.nextLine();
+            option = numCheck();
             switch (option) {
                 case 1:
-                    removeMethods.removeFlower();
+                    RemoveMethods.removeFlower();
                     break;
                 case 2:
-                   removeMethods.removeTree();
+                   RemoveMethods.removeTree();
                     break;
                 case 3:
-                    removeMethods.removeDecoration();
+                    RemoveMethods.removeDecoration();
                     break;
                 default:
                     break;
@@ -109,9 +102,41 @@ public class Functions {
 
     }
     public static void showStock(){
-        showTree();
-        showFlower();
-        showDecoration();
+        int option;
+        do{
+            System.out.println("Elija una opción\n" +
+                    "1. Mostrar Arboles\n" +
+                    "2. Mostrar Flores\n" +
+                    "3. Mostrar Decoracion\n" +
+                    "4. Mostrar Stock completo\n" +
+                    "5. Mostrar Valor total de la tienda\n" +
+                    "6. Salir");
+            option = numCheck();
+
+            switch (option){
+                case 1:
+                    showTree();
+                    break;
+                case 2:
+                    showFlower();
+                    break;
+                case 3:
+                    showDecoration();
+                    break;
+                case 4:
+                    System.out.println("-----------------STOCK-----------------");
+                    showTree();
+                    showFlower();
+                    showDecoration();
+                    break;
+                case 5:
+                    totalValue();
+                    break;
+                default:
+                    break;
+            }
+
+        }while (option != 6);
 
     }
 
