@@ -62,7 +62,7 @@ public class RemoveMethods {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM decoration ORDER BY idProductDecoration ASC;");
             while (resultSet.next()) {
-                System.out.println("- " + resultSet.getInt("idProductDecoration") + " " + resultSet.getString("decorationName"));
+                System.out.println("- " + resultSet.getInt("idProductDecoration") + " " + resultSet.getString("decorationNme"));
             }
             System.out.println("Introduce el id de la decoracion que quieres eliminar:");
             int num = numCheck();
