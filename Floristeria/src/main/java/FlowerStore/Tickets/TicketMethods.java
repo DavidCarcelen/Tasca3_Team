@@ -2,6 +2,7 @@ package FlowerStore.Tickets;
 
 import Connections.FlowerShopDDBB;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -94,6 +95,12 @@ public class TicketMethods {
                 createTicket(ticket);
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
+            }
+            try {
+                ticket.saveToJsonFile("ticket.json");
+                System.out.println("Ticket JSON saved to ticket.json");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
