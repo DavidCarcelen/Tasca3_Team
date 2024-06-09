@@ -14,14 +14,14 @@ import static FlowerStore.Functions.ShowMethods.*;
 
 public class TicketMethods {
     public static void createTicket(Ticket ticket) throws SQLException {
-        try (Connection connection = FlowerShopDDBB.getConnection()){
+        try (Connection connection = FlowerShopDDBB.getConnection()) {
             String insertInvoiceHeaderQuery = "INSERT INTO invoiceheader (idShopInvoice, dateInvoice) VALUES (?, ?)";
             PreparedStatement insertInvoiceHeaderStmt = connection.prepareStatement(insertInvoiceHeaderQuery, PreparedStatement.RETURN_GENERATED_KEYS);
             insertInvoiceHeaderStmt.setInt(1, ticket.getHeader().getIdShopInvoice());
             insertInvoiceHeaderStmt.setString(2, ticket.getHeader().getDateInvoice());
             insertInvoiceHeaderStmt.executeUpdate();
 
-            int idInvoice;//esto no se lo q es
+            int idInvoice;
             try (ResultSet generatedKeys = insertInvoiceHeaderStmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     idInvoice = generatedKeys.getInt(1);
@@ -30,7 +30,6 @@ public class TicketMethods {
                 }
             }
 
-            // Insertar las líneas de la factura
             String insertInvoiceLineQuery = "INSERT INTO invoiceline (idInvoiceHeader, idProductInvoiceLine, productQuantity, priceInvoiceLine) VALUES (?, ?, ?, ?)";
             PreparedStatement insertInvoiceLineStmt = connection.prepareStatement(insertInvoiceLineQuery);
             for (InvoiceLine line : ticket.getLines()) {
@@ -44,20 +43,21 @@ public class TicketMethods {
             System.out.println("Ticket creado exitosamente.");
         }
     }
-    public static void createNewTicket() {//quitar conexion
-        try (Connection connection = FlowerShopDDBB.getConnection()) {
+
+    public static void createNewTicket() {
+        try {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Introduce el ID de la tienda de la factura: ");
             int idShopInvoice = numCheck();
             System.out.print("Introduce la fecha (YYYY-MM-DD): ");
             String dateInvoice = scanner.next();
-            //como obtener id de la factura? para usarlo en line
+
             InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
 
             List<InvoiceLine> lines = new ArrayList<>();
             boolean moreLines = true;
 
-            int idHeader = 0; //deberá de usar idheader que hemos de obtener de una consulta
+            int idHeader = 0;
 
             while (moreLines) {
 
@@ -99,12 +99,12 @@ public class TicketMethods {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (SQLException e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public static InvoiceLine generateLine(int idHeader, int idCategory){
+    public static InvoiceLine generateLine(int idHeader, int idCategory) {
         System.out.print("Introduce el id del producto: ");
         int idProduct = numCheck();
         float precio = getPrecioProduct(idCategory, idProduct);
@@ -116,24 +116,24 @@ public class TicketMethods {
         return line;
     }
 
-    public static void showAllTickets(){
+    public static void showAllTickets() {
         String queryShowTickets = "SELECT * FROM invoiceHeader;";
 
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try (Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             Statement statement1 = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryShowTickets);
             float totalPrice = 0;
 
             while (resultSet.next()) {
-                 int idInvoice = resultSet.getInt("idInvoice");
-                 int idShopInvoice = resultSet.getInt("idShopInvoice");
-                 String dateInvoice = String.valueOf(resultSet.getDate("dateInvoice"));
-                 System.out.println("Id del ticket: " + idInvoice + " Id de la tienda: " + idShopInvoice + " Fecha: "+ dateInvoice);
-                 String queryShowLines = "SELECT * FROM invoiceLine WHERE idInvoiceHeader = " + idInvoice + ";";
-                 ResultSet resultSet1 = statement1.executeQuery(queryShowLines);
-                 float totalPriceTicket = 0;
-                 while (resultSet1.next()){
+                int idInvoice = resultSet.getInt("idInvoice");
+                int idShopInvoice = resultSet.getInt("idShopInvoice");
+                String dateInvoice = String.valueOf(resultSet.getDate("dateInvoice"));
+                System.out.println("Id del ticket: " + idInvoice + " Id de la tienda: " + idShopInvoice + " Fecha: " + dateInvoice);
+                String queryShowLines = "SELECT * FROM invoiceLine WHERE idInvoiceHeader = " + idInvoice + ";";
+                ResultSet resultSet1 = statement1.executeQuery(queryShowLines);
+                float totalPriceTicket = 0;
+                while (resultSet1.next()) {
                     int idInvoiceLine = resultSet1.getInt("idInvoiceLine");
                     int idInvoiceHeader = resultSet1.getInt("idInvoiceHeader");
                     int idProductInvoiceLine = resultSet1.getInt("idProductInvoiceLine");
