@@ -135,23 +135,27 @@ public class ShowMethods {
 
     public static float getPrecioProduct(int idCategory, int idProduct){
         String tabla = "";
+        String columnaId = "";
         String columna = "";
         float precio = 0;
         switch(idCategory){
             case 1:
                 tabla = "Tree";
+                columnaId = "idProductTree";
                 columna = "treePrice";
                 break;
             case 2:
                 tabla = "Flower";
+                columnaId = "idProductFlower";
                 columna = "flowerPrice";
                 break;
             case 3:
-                tabla = "Decoracion";
+                tabla = "Decoration";
+                columnaId = "idProductDecoration";
                 columna = "decorationPrice";
                 break;
-        }//ayuda a sacabar query
-        String queryPrecio = "SELECT " + columna + " FROM " + tabla + "WHERE idProduct = " + idProduct +";";
+        }
+        String queryPrecio = "SELECT " + columna + " FROM " + tabla + " WHERE " + columnaId + " = " + idProduct +";";
 
         try(Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();

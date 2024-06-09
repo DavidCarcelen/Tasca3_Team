@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.numCheck;
+import static FlowerStore.Functions.RemoveMethods.updateQuantityStock;
 import static FlowerStore.Functions.ShowMethods.*;
 
 public class TicketMethods {
@@ -46,66 +47,69 @@ public class TicketMethods {
         }
     }
     public static void createNewTicket() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Introduce el ID de la tienda de la factura: ");
-        int idShopInvoice = numCheck();
-        System.out.print("Introduce la fecha (YYYY-MM-DD): ");
-        String dateInvoice = scanner.next();
-        //como obtener id de la factura? para usarlo en line
-        InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
+        try (Connection connection = FlowerShopDDBB.getConnection()) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Introduce el ID de la tienda de la factura: ");
+            int idShopInvoice = numCheck();
+            System.out.print("Introduce la fecha (YYYY-MM-DD): ");
+            String dateInvoice = scanner.next();
+            //como obtener id de la factura? para usarlo en line
+            InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
 
-        List<InvoiceLine> lines = new ArrayList<>();
-        boolean moreLines = true;
+            List<InvoiceLine> lines = new ArrayList<>();
+            boolean moreLines = true;
 
-        int idHeader = 0;
+            int idHeader = 0; //deberá de usar idheader que hemos de obtener de una consulta
 
-        while (moreLines) {
+            while (moreLines) {
 
-            System.out.print("Introduce el ID del producto (1 - Arbol, 2 - Tree, o 3 - Decoracion) (o 0 para salir): ");
-            int numProduct = numCheck();
-            if(numProduct == 0){
-                moreLines = false;
-            }
+                System.out.print("Introduce el ID del producto (1 - Arbol, 2 - Flor, o 3 - Decoracion) (o 0 para salir): ");
+                int numProduct = numCheck();
+                if (numProduct == 0) {
+                    moreLines = false;
+                }
 
-            if (moreLines) {
-                switch (numProduct) {
-                    case 1:
-                        showTree();
-                        lines.add(generateLine(idHeader, 1));
-                        break;
-                    case 2:
-                        showFlower();
-                        lines.add(generateLine(idHeader, 2));
-                        break;
-                    case 3:
-                        showDecoration();
-                        lines.add(generateLine(idHeader, 3));
-                        break;
-                    default:
-                        System.out.println("ID de producto no válido.");
-                        break;
+                if (moreLines) {
+                    switch (numProduct) {
+                        case 1:
+                            showTree();
+                            lines.add(generateLine(idHeader, 1));
+                            break;
+                        case 2:
+                            showFlower();
+                            lines.add(generateLine(idHeader, 2));
+                            break;
+                        case 3:
+                            showDecoration();
+                            lines.add(generateLine(idHeader, 3));
+                            break;
+                        default:
+                            System.out.println("ID de producto no válido.");
+                            break;
+                    }
                 }
             }
-        }
-        Ticket ticket = new Ticket(header,lines);
-        try {
-            createTicket(ticket);
-        } catch (SQLException e) {
+            Ticket ticket = new Ticket(header, lines);
+            try {
+                createTicket(ticket);
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }catch (SQLException e){
             System.err.println(e.getMessage());
         }
-
     }
+
     public static InvoiceLine generateLine(int idHeader, int idCategory){
-        System.out.print("Introduce el id");
+        System.out.print("Introduce el id del producto");
         int idProduct = numCheck();
-        double precio = getPrecioProduct(idCategory, idProduct);
+        float precio = getPrecioProduct(idCategory, idProduct);
         System.out.println("Introduce cantidad");
         int productQuantity = numCheck();
-        //updateQuantity en remove methods
-        double totalPrice = precio * productQuantity;
+        updateQuantityStock(idProduct, idCategory, productQuantity);
+        float totalPrice = precio * productQuantity;
         InvoiceLine line = new InvoiceLine(idHeader, idProduct, productQuantity, totalPrice);
         return line;
-        //si en bbdd precio es float no hay que usar el mismo tipo de dato aqui?
     }
 
 }
