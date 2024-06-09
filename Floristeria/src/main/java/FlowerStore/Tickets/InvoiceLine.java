@@ -5,12 +5,13 @@ public class InvoiceLine {
     private int idInvoiceHeader;
     private int idProductInvoiceLine;
     private int productQuantity;
-    private double priceInvoiceLine;
+    private float priceInvoiceLine;
 
-    public InvoiceLine( int idInvoiceHeader, int idProductInvoiceLine, double priceInvoiceLine) {
+    public InvoiceLine( int idInvoiceHeader, int idProductInvoiceLine, int productQuantity, float priceInvoiceLine) {
         this.idInvoiceHeader = idInvoiceHeader;
         this.idProductInvoiceLine = idProductInvoiceLine;
         this.priceInvoiceLine = priceInvoiceLine;
+        this.productQuantity = productQuantity;
     }
 
     public int getIdInvoiceLine() {
@@ -45,13 +46,14 @@ public class InvoiceLine {
         this.productQuantity = productQuantity;
     }
 
-    public double getPriceInvoiceLine() {
+    public float getPriceInvoiceLine() {
         return priceInvoiceLine;
     }
 
-    public void setPriceInvoiceLine(double priceInvoiceLine) {
+    public void setPriceInvoiceLine(float priceInvoiceLine) {
         this.priceInvoiceLine = priceInvoiceLine;
     }
+
 
     @Override
     public String toString() {

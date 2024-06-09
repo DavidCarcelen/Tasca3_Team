@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.Functions.*;
-import static FlowerStore.Tickets.Ticket.createNewTicket;
+import static FlowerStore.Tickets.TicketMethods.createNewTicket;
 
 public class Menu {
     static Scanner sc = new Scanner(System.in);

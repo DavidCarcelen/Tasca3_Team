@@ -78,4 +78,50 @@ public class RemoveMethods {
             System.err.println(e.getMessage());
         }
     }
+
+    public static void updateQuantityStock(int idProduct,int idCategory, int quantity){
+        String tabla = "";
+        String columnaId = "";
+        String columna= "";
+        switch(idCategory){
+            case 1:
+                tabla = "Tree";
+                columnaId = "idProductTree";
+                columna = "treeStock";
+
+                break;
+            case 2:
+                tabla = "Flower";
+                columnaId = "idProductFlower";
+                columna = "flowerStock";
+
+                break;
+            case 3:
+                tabla = "Decoration";
+                columnaId = "idProductDecoration";
+                columna = "DecorationStock";
+
+                break;
+        }
+        String queryStock = "SElECT " + columna + " FROM " + tabla + " WHERE " + columnaId + " = " + idProduct +";";
+        int stockActual = 0;
+
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryStock);
+
+            if (resultSet.next()) {
+                stockActual = resultSet.getInt(columna);
+            }
+
+            int CalculateStock = stockActual - quantity;
+            String updateStock = "UPDATE " + tabla + " SET " + columna + " = " + CalculateStock + " WHERE " + columnaId + " = " + idProduct +";";
+            statement.executeUpdate(updateStock);
+            System.out.println("¡Stock Actualizado!");
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
 }
