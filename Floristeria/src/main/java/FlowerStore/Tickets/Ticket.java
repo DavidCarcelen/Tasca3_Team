@@ -66,49 +66,49 @@ public class Ticket {
             System.out.println("Ticket creado exitosamente.");
         }
     }
-}
-public static void createNewTicket() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Introduce el ID de la tienda de la factura: ");
-    int idShopInvoice = scanner.nextInt();
-    System.out.print("Introduce la fecha (YYYY-MM-DD): ");
-    String dateInvoice = scanner.next();
-    InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
+    public static void createNewTicket() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Introduce el ID de la tienda de la factura: ");
+        int idShopInvoice = scanner.nextInt();
+        System.out.print("Introduce la fecha (YYYY-MM-DD): ");
+        String dateInvoice = scanner.next();
+        InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
 
-    List<InvoiceLine> lines = new ArrayList<>();
-    boolean moreLines = true;
-    while (moreLines) {
-        System.out.print("Introduce el ID del producto (Flower, Tree, o Decoracion) (o -1 para terminar): ");
-        int idProduct = scanner.nextInt();
-        if (idProduct == -1) {
-            moreLines = false;
-            break;
+        List<InvoiceLine> lines = new ArrayList<>();
+        boolean moreLines = true;
+        while (moreLines) {
+            System.out.print("Introduce el ID del producto (Flower, Tree, o Decoracion) (o -1 para terminar): ");
+            int idProduct = scanner.nextInt();
+            if (idProduct == -1) {
+                moreLines = false;
+                break;
+            }
+
+            double price = 0.0;
+
+            if (idProduct == 1) {
+                System.out.print("Introduce la cantidad de flores: ");
+            } else if (idProduct == 2) {
+                System.out.print("Introduce la cantidad de árboles: ");
+            } else if (idProduct == 3) {
+                System.out.print("Introduce la cantidad de elementos de decoración: ");
+            } else {
+                System.out.println("ID de producto no válido.");
+                continue;
+            }
+
+            int productQuantity = scanner.nextInt();
+            double totalPrice = price * productQuantity;
+            InvoiceLine line = new InvoiceLine(idProduct, productQuantity, totalPrice);
+            lines.add(line);
+
+            Ticket ticket = new Ticket(header,lines);
+            try {
+                ticket.createTicket(ticket);
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
-        double price = 0.0;
-
-        if (idProduct == 1) {
-            System.out.print("Introduce la cantidad de flores: ");
-        } else if (idProduct == 2) {
-            System.out.print("Introduce la cantidad de árboles: ");
-        } else if (idProduct == 3) {
-            System.out.print("Introduce la cantidad de elementos de decoración: ");
-        } else {
-            System.out.println("ID de producto no válido.");
-            continue;
-        }
-
-        int productQuantity = scanner.nextInt();
-        double totalPrice = price * productQuantity;
-        InvoiceLine line = new InvoiceLine(idProduct, productQuantity, totalPrice);
-        lines.add(line);
-
-        Ticket ticket = new Ticket(header,lines);
-        try {
-            ticket.createTicket(ticket);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
     }
-
 }
