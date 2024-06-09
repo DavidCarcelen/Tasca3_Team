@@ -3,10 +3,7 @@ package FlowerStore.Tickets;
 import Connections.FlowerShopDDBB;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -47,7 +44,7 @@ public class TicketMethods {
             System.out.println("Ticket creado exitosamente.");
         }
     }
-    public static void createNewTicket() {
+    public static void createNewTicket() {//quitar conexion
         try (Connection connection = FlowerShopDDBB.getConnection()) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Introduce el ID de la tienda de la factura: ");
@@ -98,7 +95,7 @@ public class TicketMethods {
             }
             try {
                 ticket.saveToJsonFile("ticket.json");
-                System.out.println("Ticket JSON saved to ticket.json");
+                System.out.println("Ticket JSON creado.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,15 +105,50 @@ public class TicketMethods {
     }
 
     public static InvoiceLine generateLine(int idHeader, int idCategory){
-        System.out.print("Introduce el id del producto");
+        System.out.print("Introduce el id del producto: ");
         int idProduct = numCheck();
         float precio = getPrecioProduct(idCategory, idProduct);
-        System.out.println("Introduce cantidad");
+        System.out.print("Introduce cantidad: ");
         int productQuantity = numCheck();
         updateQuantityStock(idProduct, idCategory, productQuantity);
         float totalPrice = precio * productQuantity;
         InvoiceLine line = new InvoiceLine(idHeader, idProduct, productQuantity, totalPrice);
         return line;
+    }
+
+    public static void showAllTickets(){
+        String queryShowTickets = "SELECT * FROM invoiceHeader;";
+
+        try(Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            Statement statement1 = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryShowTickets);
+            float totalPrice = 0;
+
+            while (resultSet.next()) {
+                 int idInvoice = resultSet.getInt("idInvoice");
+                 int idShopInvoice = resultSet.getInt("idShopInvoice");
+                 String dateInvoice = String.valueOf(resultSet.getDate("dateInvoice"));
+                 System.out.println("Id del ticket: " + idInvoice + " Id de la tienda: " + idShopInvoice + " Fecha: "+ dateInvoice);
+                 String queryShowLines = "SELECT * FROM invoiceLine WHERE idInvoiceHeader = " + idInvoice + ";";
+                 ResultSet resultSet1 = statement1.executeQuery(queryShowLines);
+                 float totalPriceTicket = 0;
+                 while (resultSet1.next()){
+                    int idInvoiceLine = resultSet1.getInt("idInvoiceLine");
+                    int idInvoiceHeader = resultSet1.getInt("idInvoiceHeader");
+                    int idProductInvoiceLine = resultSet1.getInt("idProductInvoiceLine");
+                    int productQuantity = resultSet1.getInt("productQuantity");
+                    float priceInvoiceLine = resultSet1.getFloat("priceInvoiceLine");
+                    System.out.println("     Id Ticket: " + idInvoiceHeader + ", Id Linea: " + idInvoiceLine + ", Id Producto: " + idProductInvoiceLine + ", Cantidad: " + productQuantity + ", Precio Total: " + priceInvoiceLine);
+                    totalPriceTicket += priceInvoiceLine;
+                    totalPrice += priceInvoiceLine;
+                }
+                System.out.println("     Total ticket: " + totalPriceTicket + "€");
+            }
+            System.out.println("Total ventas: " + totalPrice + "€");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 }

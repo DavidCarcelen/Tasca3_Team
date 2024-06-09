@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.*;
 import static FlowerStore.Functions.Functions.*;
-import static FlowerStore.Tickets.TicketMethods.createNewTicket;
+import static FlowerStore.Tickets.TicketMethods.*;
 
 public class Menu {
     static Scanner sc = new Scanner(System.in);
 
-    public static void menu() throws SQLException {
+    public static void menu(){
         int num = 0;
         do {
             System.out.println("Bienvenido a la floristeria\n" +
@@ -37,6 +37,7 @@ public class Menu {
                     createNewTicket();
                     break;
                 case 5:
+                    showAllTickets();
                     break;
                 case 6:
                     System.out.println("Adios.");
