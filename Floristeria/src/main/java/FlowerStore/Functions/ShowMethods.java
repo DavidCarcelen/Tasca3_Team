@@ -124,7 +124,7 @@ public class ShowMethods {
 
             if (resultSet.next()) {
                 float totalValue = resultSet.getFloat("totalValue");
-                System.out.println("Valor total de la floristería: " + totalValue + "€");
+                System.out.println("VALOR TOTAL DE LA FLORISTERÍA: " + totalValue + "€");
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

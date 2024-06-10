@@ -143,7 +143,7 @@ public class TicketMethods {
                 }
                 System.out.println("     TOTAL TICKET: " + totalPriceTicket + "€");
             }
-            System.out.println("TOTAL VENTAS: " + totalPrice + "€");
+            System.out.println(STR."\{String.format("TOTAL VENTAS: %.2f ", totalPrice)}€");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

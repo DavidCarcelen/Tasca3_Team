@@ -31,18 +31,21 @@ public class SubMenus {
                     double height = doubleCheck();
                     Tree tree = new Tree(product.getName(), product.getPrice(), product.getQuantity(), height);
                     addTreeToDatabase(tree);
+                    System.out.println("ARBOL AÑADIDO");
                     break;
                 case 2:
                     product = productData();
                     int color = flowerGetIdColor();
                     Flower flower = new Flower(product.getName(), product.getPrice(), product.getQuantity(), color);
                     addFLowerToDatabase(flower);
+                    System.out.println("FLOR AÑADIDA");
                     break;
                 case 3:
                     product = productData();
                     int material = decorationGetIdType();
                     Decoration decoration = new Decoration(product.getName(), product.getPrice(), product.getQuantity(), material);
                     addDecorationToDatabase(decoration);
+                    System.out.println("DECORACIÓN AÑADIDA");
                     break;
                 default:
                     break;
@@ -78,12 +81,12 @@ public class SubMenus {
         int option;
         do{
             System.out.println("ELIJE QUÉ MOSTRAR:\n" +
-                    "1. ÁRBOLES\n" +
-                    "2. FLORES\n" +
-                    "3. DECORACIÓN\n" +
-                    "4. STOCK COMPLETO\n" +
-                    "5. VALOR TOTAL DE LA TIENDA\n" +
-                    "6. SALIR");
+                    "1 ÁRBOLES\n" +
+                    "2 FLORES\n" +
+                    "3 DECORACIÓN\n" +
+                    "4 STOCK COMPLETO\n" +
+                    "5 VALOR TOTAL DE LA TIENDA\n" +
+                    "6 SALIR");
             option = numCheck();
 
             switch (option){
