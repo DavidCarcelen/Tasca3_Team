@@ -93,8 +93,10 @@ public class TicketMethods {
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
+            int numTicket = showLastTicket();
+
             try {
-                ticket.saveToJsonFile("ticket.json");
+                ticket.saveToJsonFile("ticket." + numTicket + ".json");
                 System.out.println("Ticket JSON creado.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -149,6 +151,24 @@ public class TicketMethods {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public static int showLastTicket(){
+        String queryGetLastTicketId = "Select idInvoice from InvoiceHeader order by idInvoice desc limit 1;";
+        int idTicket = 0;
+        try (Connection connection = FlowerShopDDBB.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryGetLastTicketId);
+            if (resultSet.next()){
+                idTicket = resultSet.getInt("idInvoice");
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return idTicket;
+
+
     }
 
 }
