@@ -4,6 +4,7 @@ import Connections.FlowerShopDDBB;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -45,65 +46,59 @@ public class TicketMethods {
     }
 
     public static void createNewTicket() {
+
+        LocalDate currentDate = LocalDate.now();
+        String dateInvoice = currentDate.toString();
+
+        InvoiceHeader header = new InvoiceHeader(1, dateInvoice);
+
+        List<InvoiceLine> lines = new ArrayList<>();
+        boolean moreLines = true;
+        int idHeader = 0;
+
+        while (moreLines) {
+
+            System.out.print("Introduce el ID del producto (1 - Arbol, 2 - Flor, o 3 - Decoracion) (o 0 para salir): ");
+            int numProduct = numCheck();
+            if (numProduct == 0) {
+                moreLines = false;
+            }
+
+            if (moreLines) {
+                switch (numProduct) {
+                    case 1:
+                        showTree();
+                        lines.add(generateLine(idHeader, 1));
+                        break;
+                    case 2:
+                        showFlower();
+                        lines.add(generateLine(idHeader, 2));
+                        break;
+                    case 3:
+                        showDecoration();
+                        lines.add(generateLine(idHeader, 3));
+                        break;
+                    default:
+                        System.out.println("ID de producto no válido.");
+                        break;
+                }
+            }
+        }
+        Ticket ticket = new Ticket(header, lines);
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Introduce el ID de la tienda de la factura: ");
-            int idShopInvoice = numCheck();
-            System.out.print("Introduce la fecha (YYYY-MM-DD): ");
-            String dateInvoice = scanner.next();
-
-            InvoiceHeader header = new InvoiceHeader(idShopInvoice, dateInvoice);
-
-            List<InvoiceLine> lines = new ArrayList<>();
-            boolean moreLines = true;
-
-            int idHeader = 0;
-
-            while (moreLines) {
-
-                System.out.print("Introduce el ID del producto (1 - Arbol, 2 - Flor, o 3 - Decoracion) (o 0 para salir): ");
-                int numProduct = numCheck();
-                if (numProduct == 0) {
-                    moreLines = false;
-                }
-
-                if (moreLines) {
-                    switch (numProduct) {
-                        case 1:
-                            showTree();
-                            lines.add(generateLine(idHeader, 1));
-                            break;
-                        case 2:
-                            showFlower();
-                            lines.add(generateLine(idHeader, 2));
-                            break;
-                        case 3:
-                            showDecoration();
-                            lines.add(generateLine(idHeader, 3));
-                            break;
-                        default:
-                            System.out.println("ID de producto no válido.");
-                            break;
-                    }
-                }
-            }
-            Ticket ticket = new Ticket(header, lines);
-            try {
-                createTicket(ticket);
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            }
-            int numTicket = showLastTicket();
-
-            try {
-                ticket.saveToJsonFile("ticket." + numTicket + ".json");
-                System.out.println("Ticket JSON creado.");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
+            createTicket(ticket);
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+        int numTicket = showLastTicket();
+
+        try {
+            ticket.saveToJsonFile("ticket." + numTicket + ".json");
+            System.out.println("Ticket JSON creado.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static InvoiceLine generateLine(int idHeader, int idCategory) {
@@ -153,13 +148,13 @@ public class TicketMethods {
         }
     }
 
-    public static int showLastTicket(){
+    public static int showLastTicket() {
         String queryGetLastTicketId = "Select idInvoice from InvoiceHeader order by idInvoice desc limit 1;";
         int idTicket = 0;
         try (Connection connection = FlowerShopDDBB.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryGetLastTicketId);
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 idTicket = resultSet.getInt("idInvoice");
             }
 
