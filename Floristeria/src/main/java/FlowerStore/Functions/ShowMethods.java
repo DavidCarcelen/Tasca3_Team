@@ -7,10 +7,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ShowMethods {
+    private static FlowerShopDDBB flowerShopDDBB = FlowerShopDDBB.getInstance();
     public static void showTree(){
-
         System.out.println("-----------------ARBOLES----------------");
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT \n" +
                     "    p.idProduct,\n" +
@@ -44,9 +44,8 @@ public class ShowMethods {
         }
     }
     public static void showFlower(){
-
         System.out.println("------------------FLORES----------------");
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT \n" +
                     "    p.idProduct,\n" +
@@ -82,7 +81,7 @@ public class ShowMethods {
     }
     public static void showDecoration(){
         System.out.println("---------------DECORACION---------------");
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT \n" +
                     "    p.idProduct,\n" +
@@ -119,7 +118,7 @@ public class ShowMethods {
     public static void totalValue (){
         String queryTotalValue = "SELECT (SUM(f.flowerStock * f.flowerPrice) + SUM(t.treeStock * t.treePrice) + SUM(d.DecorationStock * d.DecorationPrice)) AS totalValue FROM Product p LEFT JOIN Flower f ON p.idProduct = f.idProductFlower LEFT JOIN Tree t ON p.idProduct = t.idProductTree LEFT JOIN Decoration d ON p.idProduct = d.idProductDecoration;";
 
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryTotalValue);
 
@@ -157,7 +156,7 @@ public class ShowMethods {
         }
         String queryPrecio = "SELECT " + columna + " FROM " + tabla + " WHERE " + columnaId + " = " + idProduct +";";
 
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryPrecio);
 

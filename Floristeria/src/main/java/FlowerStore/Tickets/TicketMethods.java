@@ -14,8 +14,9 @@ import static FlowerStore.Functions.RemoveMethods.updateQuantityStock;
 import static FlowerStore.Functions.ShowMethods.*;
 
 public class TicketMethods {
+    private static FlowerShopDDBB flowerShopDDBB = FlowerShopDDBB.getInstance();
     public static void createTicket(Ticket ticket) throws SQLException {
-        try (Connection connection = FlowerShopDDBB.getConnection()) {
+        try (Connection connection = flowerShopDDBB.getConnection2()) {
             String insertInvoiceHeaderQuery = "INSERT INTO invoiceheader (idShopInvoice, dateInvoice) VALUES (?, ?)";
             PreparedStatement insertInvoiceHeaderStmt = connection.prepareStatement(insertInvoiceHeaderQuery, PreparedStatement.RETURN_GENERATED_KEYS);
             insertInvoiceHeaderStmt.setInt(1, ticket.getHeader().getIdShopInvoice());
@@ -41,7 +42,7 @@ public class TicketMethods {
                 insertInvoiceLineStmt.executeUpdate();
             }
 
-            System.out.println("Ticket creado exitosamente.");
+            System.out.println("TICKET CREADO EXITOSAMENTE.");
         }
     }
 
@@ -58,7 +59,7 @@ public class TicketMethods {
 
         while (moreLines) {
 
-            System.out.print("Introduce el ID del producto (1 - Arbol, 2 - Flor, o 3 - Decoracion) (o 0 para salir): ");
+            System.out.print("ELIJE TIPO DE PRODUCTO:\n" + " 1 Arbol, 2 Flor, 3 Decoracion o 0 para salir: ");
             int numProduct = numCheck();
             if (numProduct == 0) {
                 moreLines = false;
@@ -79,7 +80,7 @@ public class TicketMethods {
                         lines.add(generateLine(idHeader, 3));
                         break;
                     default:
-                        System.out.println("ID de producto no válido.");
+                        System.err.println("OPCIÓN NO VÁLIDA");
                         break;
                 }
             }
@@ -94,7 +95,7 @@ public class TicketMethods {
 
         try {
             ticket.saveToJsonFile("ticket." + numTicket + ".json");
-            System.out.println("Ticket JSON creado.");
+            System.out.println("TICKER JSON CREADO");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,10 +103,10 @@ public class TicketMethods {
     }
 
     public static InvoiceLine generateLine(int idHeader, int idCategory) {
-        System.out.print("Introduce el id del producto: ");
+        System.out.print("INTRODUCE EL ID DEL PRODUCTO: ");
         int idProduct = numCheck();
         float precio = getPrecioProduct(idCategory, idProduct);
-        System.out.print("Introduce cantidad: ");
+        System.out.print("INTRODUCE CANTIDAD: ");
         int productQuantity = numCheck();
         updateQuantityStock(idProduct, idCategory, productQuantity);
         float totalPrice = precio * productQuantity;
@@ -116,7 +117,7 @@ public class TicketMethods {
     public static void showAllTickets() {
         String queryShowTickets = "SELECT * FROM invoiceHeader;";
 
-        try (Connection connection = FlowerShopDDBB.getConnection()) {
+        try (Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             Statement statement1 = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryShowTickets);
@@ -140,9 +141,9 @@ public class TicketMethods {
                     totalPriceTicket += priceInvoiceLine;
                     totalPrice += priceInvoiceLine;
                 }
-                System.out.println("     Total ticket: " + totalPriceTicket + "€");
+                System.out.println("     TOTAL TICKET: " + totalPriceTicket + "€");
             }
-            System.out.println("Total ventas: " + totalPrice + "€");
+            System.out.println("TOTAL VENTAS: " + totalPrice + "€");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -151,7 +152,7 @@ public class TicketMethods {
     public static int showLastTicket() {
         String queryGetLastTicketId = "Select idInvoice from InvoiceHeader order by idInvoice desc limit 1;";
         int idTicket = 0;
-        try (Connection connection = FlowerShopDDBB.getConnection()) {
+        try (Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(queryGetLastTicketId);
             if (resultSet.next()) {
@@ -162,8 +163,6 @@ public class TicketMethods {
             System.err.println(e.getMessage());
         }
         return idTicket;
-
-
     }
 
 }

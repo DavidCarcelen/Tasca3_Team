@@ -1,8 +1,12 @@
 package FlowerStore.Functions;
 
+import FlowerStore.Items.Product;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static FlowerStore.Functions.AddMethods.flowerGetIdColor;
 
 public class AuxiliarMethods {
     static Scanner sc = new Scanner(System.in);
@@ -15,7 +19,7 @@ public class AuxiliarMethods {
                 num = sc.nextInt();
                 b = true;
             } catch (InputMismatchException e) {
-                System.out.println("Entra un numero");
+                System.out.println("INSERTA UN NÚMERO");
                 sc.nextLine();
             }
         }
@@ -29,7 +33,7 @@ public class AuxiliarMethods {
                 num = sc.nextInt();
                 b = true;
             } catch (InputMismatchException e) {
-                System.out.println("Entra un numero");
+                System.err.println("INSERTA UN NÚMERO");
                 sc.nextLine();
             }
         }
@@ -39,7 +43,7 @@ public class AuxiliarMethods {
         boolean b = false;
         int num = 0;
         do{
-            System.out.println("Introduce el id que aparece en la tabla o introduce 0 si no existe en la tabla:");
+            System.out.println("INTRODUCE UN ID DE LA TABLA, INTRODUCE 0 SI NO ESTÁ:");
             num = numCheck();
             if (num != 0) {
                 int i = 0;
@@ -50,7 +54,7 @@ public class AuxiliarMethods {
                     i++;
                 }
                 if (!b){
-                    System.out.println("No existe ese ID");
+                    System.err.println("NO EXISTE ESE ID");
                 }
             }
         }while((!b) && (num != 0));
@@ -58,4 +62,14 @@ public class AuxiliarMethods {
         return num;
     }
 
+    public static Product productData (){
+        System.out.println("INDICA UN NOMBRE:");
+        String name = sc.nextLine();
+        System.out.println("INDICA UN PRECIO: ");
+        double price = doubleCheck();
+        System.out.println("INDICA UNA CANTIDAD: ");
+        int quantity = numCheck();
+        Product product = new Product(name,price,quantity);
+        return product;
+    }
 }

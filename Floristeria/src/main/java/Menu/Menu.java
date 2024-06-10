@@ -1,11 +1,9 @@
 package Menu;
 
-import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.*;
-import static FlowerStore.Functions.Functions.*;
+import static FlowerStore.Functions.SubMenus.*;
 import static FlowerStore.Tickets.TicketMethods.*;
 
 public class Menu {
@@ -14,13 +12,14 @@ public class Menu {
     public static void menu(){
         int num = 0;
         do {
-            System.out.println("Bienvenido a la floristeria\n" +
-                    "1 Añadir Productos\n" +
-                    "2 Ver Productos \n" +
-                    "3 Eliminar Productos\n" +
-                    "4 Ticket Nuevo\n" +
-                    "5 Ver todos los Tickets\n" +
-                    "6 Salir");
+            System.out.println("BIENVENIDO A LA FLORISTERÍA\n" +
+                    "ELIJE UNA OPCIÓN:\n" +
+                    "1 AÑADIR PRODUCTOS\n" +
+                    "2 VER PRODUCTOS \n" +
+                    "3 ELIMINAR PRODUCTOS\n" +
+                    "4 NUEVO TICKET\n" +
+                    "5 VER TODOS LOS TICKETS\n" +
+                    "6 SALIR");
 
             num = numCheck();
             switch (num) {
@@ -40,10 +39,10 @@ public class Menu {
                     showAllTickets();
                     break;
                 case 6:
-                    System.out.println("Adios.");
+                    System.out.println("ADIÓS");
                     break;
                 default:
-                    System.out.println("No es una opción valida. Introduce una opcion que exista en el menu.");
+                    System.out.println("No es una opción válida, elije una opción del menu.");
                     break;
             }
 

@@ -1,0 +1,29 @@
+{
+  "header": {
+    "idShopInvoice": 1,
+    "dateInvoice": "2024-06-10"
+  },
+  "lines": [
+    {
+      "idInvoiceLine": 0,
+      "productQuantity": 12,
+      "idInvoiceHeader": 0,
+      "idProductInvoiceLine": 3,
+      "priceInvoiceLine": 0
+    },
+    {
+      "idInvoiceLine": 0,
+      "productQuantity": 1,
+      "idInvoiceHeader": 0,
+      "idProductInvoiceLine": 2,
+      "priceInvoiceLine": 58.34
+    },
+    {
+      "idInvoiceLine": 0,
+      "productQuantity": 4,
+      "idInvoiceHeader": 0,
+      "idProductInvoiceLine": 9,
+      "priceInvoiceLine": 120
+    }
+  ]
+}

@@ -14,6 +14,7 @@ import java.util.Scanner;
 import static FlowerStore.Functions.AuxiliarMethods.*;
 
 public class AddMethods {
+    private static FlowerShopDDBB flowerShopDDBB = FlowerShopDDBB.getInstance();
     static Scanner sc = new Scanner(System.in);
 
     private static String queryGetIdProduct = "SELECT idProduct FROM product ORDER BY idProduct DESC LIMIT 1;";
@@ -21,7 +22,7 @@ public class AddMethods {
     private static String queryGetIdMaterial = "SELECT idMaterial FROM material ORDER BY idMaterial DESC LIMIT 1;";
 
     public static void addFLowerToDatabase(Flower flower) {
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (2);");
             ResultSet resultSet = statement.executeQuery(queryGetIdProduct);
@@ -35,7 +36,7 @@ public class AddMethods {
         }
     }
     public static void addTreeToDatabase(Tree tree) {
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (1);");
             ResultSet resultSet = statement.executeQuery(queryGetIdProduct);
@@ -51,7 +52,7 @@ public class AddMethods {
     public static void addDecorationToDatabase(Decoration decoration) {
         String queryMaterial = "INSERT INTO material (idMaterial, materialName) VALUES ( 1, " + decoration.getMaterialType() + ");";
 
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO product (idCategoryProduct) VALUES (3);");
             ResultSet resultSet = statement.executeQuery(queryGetIdProduct);
@@ -67,7 +68,7 @@ public class AddMethods {
     public static int flowerGetIdColor() {
         int idColor = 0;
         System.out.println("------------------LISTA DE COLORES-----------------");
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM color ORDER BY idColor ASC;");
             ArrayList <Integer> listaId = new ArrayList<>();
@@ -77,7 +78,7 @@ public class AddMethods {
             }
             int num = idCheck(listaId);
             if(num == 0){
-                System.out.println("Dígame que color quiere añadir a la tabla:");
+                System.out.println("QUÉ COLOR QUIERES AÑADIR?:");
                 String color = sc.nextLine();
                 statement.executeUpdate("INSERT INTO color (colorName) VALUES ('" + color + "');");
                 ResultSet resultSet1 = statement.executeQuery(queryGetIdColor);
@@ -95,7 +96,7 @@ public class AddMethods {
     public static int decorationGetIdType() {
         int idMaterial = 0;
         System.out.println("------------------LISTA DE MATERIALES-----------------");
-        try(Connection connection = FlowerShopDDBB.getConnection()) {
+        try(Connection connection = flowerShopDDBB.getConnection2()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM material ORDER BY idMaterial ASC;");
             ArrayList <Integer> listaId = new ArrayList<>();
@@ -105,7 +106,7 @@ public class AddMethods {
             }
             int num = idCheck(listaId);
             if(num == 0){
-                System.out.println("Dígame que material quiere añadir a la tabla:");
+                System.out.println("QUÉ MATERIAL QUIERES AÑADIR?:");
                 String material = sc.nextLine();
                 statement.executeUpdate("INSERT INTO material (materialName) VALUES ('" + material + "');");
                 ResultSet resultSet1 = statement.executeQuery(queryGetIdMaterial);

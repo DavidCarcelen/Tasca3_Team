@@ -1,6 +1,6 @@
 package FlowerStore.Items;
 
-public abstract class Product {
+public class Product {
     protected String name;
     protected double price;
     protected int quantity;
@@ -35,6 +35,6 @@ public abstract class Product {
         this.quantity = quantity;
     }
 
-    @Override
-    public abstract String toString();
+    /*@Override
+    public abstract String toString();*/
 }

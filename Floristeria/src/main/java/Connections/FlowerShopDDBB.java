@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class FlowerShopDDBB { //hacer singleton
+public class FlowerShopDDBB {
     private static FlowerShopDDBB instance;
     private static final String URL = "jdbc:mysql://localhost:3306/flowershop";
     private static final String USER = "root";
-    private static final String PASSWORD = "XarawtID";
+    private static final String PASSWORD = "";
 
     private FlowerShopDDBB(){
     }
@@ -20,9 +20,8 @@ public class FlowerShopDDBB { //hacer singleton
         return instance;
     }
 
-    public static Connection getConnection() throws SQLException {
+
+    public Connection getConnection2() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
-
-
 }
