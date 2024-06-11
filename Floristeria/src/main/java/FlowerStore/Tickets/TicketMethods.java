@@ -15,6 +15,7 @@ import static FlowerStore.Functions.ShowMethods.*;
 
 public class TicketMethods {
     private static FlowerShopDDBB flowerShopDDBB = FlowerShopDDBB.getInstance();
+
     public static void createTicket(Ticket ticket) throws SQLException {
         try (Connection connection = flowerShopDDBB.getConnection2()) {
             String insertInvoiceHeaderQuery = "INSERT INTO invoiceheader (idShopInvoice, dateInvoice) VALUES (?, ?)";
@@ -103,9 +104,13 @@ public class TicketMethods {
     }
 
     public static InvoiceLine generateLine(int idHeader, int idCategory) {
-        System.out.print("INTRODUCE EL ID DEL PRODUCTO: ");
-        int idProduct = numCheck();
-        float precio = getPrecioProduct(idCategory, idProduct);
+        float precio = 0;
+        int idProduct = 0;
+        while (precio == 0) {
+            System.out.print("INTRODUCE EL ID DEL PRODUCTO: ");
+            idProduct = numCheck();
+            precio = getPrecioProduct(idCategory, idProduct);
+        }
         System.out.print("INTRODUCE CANTIDAD: ");
         int productQuantity = numCheck();
         updateQuantityStock(idProduct, idCategory, productQuantity);

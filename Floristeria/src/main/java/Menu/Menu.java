@@ -3,7 +3,7 @@ package Menu;
 import java.util.Scanner;
 
 import static FlowerStore.Functions.AuxiliarMethods.*;
-import static FlowerStore.Functions.SubMenus.*;
+import static Menu.SubMenus.*;
 import static FlowerStore.Tickets.TicketMethods.*;
 
 public class Menu {

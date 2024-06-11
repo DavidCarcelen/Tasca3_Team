@@ -162,6 +162,9 @@ public class ShowMethods {
 
             if (resultSet.next()) {
                 precio = resultSet.getFloat(columna);
+            } else {
+                System.err.println("NO EXISTE ESTE ID");
+
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

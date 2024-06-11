@@ -1,5 +1,6 @@
-package FlowerStore.Functions;
+package Menu;
 
+import FlowerStore.Functions.RemoveMethods;
 import FlowerStore.Items.Product;
 import FlowerStore.Items.Tree;
 import FlowerStore.Items.Decoration;
@@ -12,7 +13,6 @@ import static FlowerStore.Functions.ShowMethods.*;
 import static FlowerStore.Functions.AddMethods.*;
 
 public class SubMenus {
-    static Scanner sc = new Scanner(System.in);
     public static void addProductStock() {
         int option;
         Product product;
