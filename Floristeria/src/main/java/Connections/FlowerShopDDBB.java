@@ -8,7 +8,7 @@ public class FlowerShopDDBB {
     private static FlowerShopDDBB instance;
     private static final String URL = "jdbc:mysql://localhost:3306/flowershop";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "XarawtID";
 
     private FlowerShopDDBB(){
     }

@@ -79,10 +79,11 @@ public class RemoveMethods {
         }
     }
 
-    public static void updateQuantityStock(int idProduct, int idCategory, int quantity) {
+    public static int updateQuantityStock(int idProduct, int idCategory, int quantity) {
         String tabla = "";
         String columnaId = "";
         String columna = "";
+        int calculateStock = 0;
         switch (idCategory) {
             case 1:
                 tabla = "Tree";
@@ -114,14 +115,19 @@ public class RemoveMethods {
                 stockActual = resultSet.getInt(columna);
             }
 
-            int CalculateStock = stockActual - quantity;//CONTROL
-            String updateStock = "UPDATE " + tabla + " SET " + columna + " = " + CalculateStock + " WHERE " + columnaId + " = " + idProduct + ";";
-            statement.executeUpdate(updateStock);
-            System.out.println("¡STOCK ACTUALIZADO!");
+            calculateStock = stockActual - quantity;//CONTROL
+            if (calculateStock >= 0){
+                String updateStock = "UPDATE " + tabla + " SET " + columna + " = " + calculateStock + " WHERE " + columnaId + " = " + idProduct + ";";
+                statement.executeUpdate(updateStock);
+                System.out.println("¡STOCK ACTUALIZADO!");
+            } else{
+                System.out.println("SOLO EXISTEN " + stockActual +" UNIDADES");
+            }
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        return calculateStock;
 
     }
 }

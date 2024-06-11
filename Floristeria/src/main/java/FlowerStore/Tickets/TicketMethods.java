@@ -106,15 +106,22 @@ public class TicketMethods {
     public static InvoiceLine generateLine(int idHeader, int idCategory) {
         float precio = 0;
         int idProduct = 0;
+        int stock = -1;
+        int productQuantity = 0;
+        float totalPrice = 0;
         while (precio == 0) {
             System.out.println("INTRODUCE EL ID DEL PRODUCTO: ");
             idProduct = numCheck();
             precio = getPrecioProduct(idCategory, idProduct);
         }
-        System.out.print("INTRODUCE CANTIDAD: ");
-        int productQuantity = numCheck();
-        updateQuantityStock(idProduct, idCategory, productQuantity);
-        float totalPrice = precio * productQuantity;
+        while (stock < 0){
+            System.out.print("INTRODUCE CANTIDAD: ");
+            productQuantity = numCheck();
+            stock = updateQuantityStock(idProduct, idCategory, productQuantity);
+            totalPrice = precio * productQuantity;
+
+        }
+
         InvoiceLine line = new InvoiceLine(idHeader, idProduct, productQuantity, totalPrice);
         return line;
     }
