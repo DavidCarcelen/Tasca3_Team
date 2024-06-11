@@ -60,7 +60,7 @@ public class TicketMethods {
 
         while (moreLines) {
 
-            System.out.print("ELIJE TIPO DE PRODUCTO:\n" + " 1 Arbol, 2 Flor, 3 Decoracion o 0 para salir: ");
+            System.out.print("ELIJE TIPO DE PRODUCTO:\n" + " 1 ARBOL, 2 FLOR, 3 DECORACIÓN o 0 PARA SALIR: ");
             int numProduct = numCheck();
             if (numProduct == 0) {
                 moreLines = false;
@@ -107,7 +107,7 @@ public class TicketMethods {
         float precio = 0;
         int idProduct = 0;
         while (precio == 0) {
-            System.out.print("INTRODUCE EL ID DEL PRODUCTO: ");
+            System.out.println("INTRODUCE EL ID DEL PRODUCTO: ");
             idProduct = numCheck();
             precio = getPrecioProduct(idCategory, idProduct);
         }
